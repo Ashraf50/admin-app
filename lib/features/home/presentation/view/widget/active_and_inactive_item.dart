@@ -39,7 +39,10 @@ class ActiveDrawerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: const BoxDecoration(color: AppColors.buttonDrawer),
+      decoration: BoxDecoration(
+        color: AppColors.buttonDrawer,
+        borderRadius: BorderRadius.circular(13),
+      ),
       child: ListTile(
         leading: SvgPicture.asset(
           drawerItemModel.image,

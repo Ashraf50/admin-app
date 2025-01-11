@@ -5,4 +5,8 @@ class AppStyles {
     fontSize: 18,
     color: Colors.white,
   );
+  static const TextStyle textStyle18bold = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
 }
