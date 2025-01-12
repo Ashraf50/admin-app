@@ -53,7 +53,7 @@ class ActiveDrawerItem extends StatelessWidget {
         ),
         title: Text(
           drawerItemModel.title,
-          style: AppStyles.textStyle18,
+          style: AppStyles.textStyle18white,
         ),
       ),
     );

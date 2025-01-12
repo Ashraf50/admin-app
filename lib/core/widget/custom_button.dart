@@ -1,0 +1,34 @@
+import 'package:admin_app/core/constant/app_colors.dart';
+import 'package:admin_app/core/constant/app_styles.dart';
+import 'package:flutter/material.dart';
+
+class CustomButton extends StatelessWidget {
+  final String title;
+  final void Function() onTap;
+  const CustomButton({
+    super.key,
+    required this.title,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(13),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 13),
+        decoration: BoxDecoration(
+          color: AppColors.blue,
+          borderRadius: BorderRadius.circular(13),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: AppStyles.textStyle18white,
+          ),
+        ),
+      ),
+    );
+  }
+}

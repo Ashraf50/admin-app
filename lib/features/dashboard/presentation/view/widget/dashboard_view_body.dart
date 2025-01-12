@@ -9,7 +9,6 @@ class DashboardViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      backgroundColor: Colors.white,
       body: ListView(
         children: [
           GridView.builder(

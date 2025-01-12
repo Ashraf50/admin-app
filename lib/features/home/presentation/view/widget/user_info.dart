@@ -1,6 +1,7 @@
 import 'package:admin_app/core/constant/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class UserInfoListTile extends StatelessWidget {
   const UserInfoListTile({
@@ -33,7 +34,9 @@ class UserInfoListTile extends StatelessWidget {
             ],
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.push("/edit_profile");
+            },
             icon: const Icon(Icons.edit),
           )
         ],
