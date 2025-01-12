@@ -1,5 +1,6 @@
 import 'package:admin_app/features/routing/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 void main() {
   runApp(MyApp(
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      builder: FlutterSmartDialog.init(),
       theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       routerConfig: appRouter.router,
       debugShowCheckedModeBanner: false,
