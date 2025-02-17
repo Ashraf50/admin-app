@@ -14,12 +14,12 @@ class TicketsDetailsView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ListView(
-          children: const [
-            CircleAvatar(
+          children: [
+            const CircleAvatar(
               radius: 100,
               backgroundImage: AssetImage("assets/img/profile.jpg"),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Center(
@@ -28,7 +28,7 @@ class TicketsDetailsView extends StatelessWidget {
                 style: AppStyles.textStyle18black,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
@@ -39,7 +39,7 @@ class TicketsDetailsView extends StatelessWidget {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ali",
               style: AppStyles.textStyle18black,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -48,10 +48,10 @@ class TicketsDetailsView extends StatelessWidget {
                   "Status",
                   style: AppStyles.textStyle18bold,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
-                StatusButton()
+                const StatusButton()
               ],
             )
           ],

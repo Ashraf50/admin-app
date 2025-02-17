@@ -18,7 +18,7 @@ class EditProfileView extends StatelessWidget {
         child: ListView(
           children: [
             const ProfilePhoto(),
-            const Text(
+            Text(
               "First Name",
               style: AppStyles.textStyle18bold,
             ),
@@ -26,7 +26,7 @@ class EditProfileView extends StatelessWidget {
               hintText: "First Name",
               controller: TextEditingController(),
             ),
-            const Text(
+            Text(
               "Last Name",
               style: AppStyles.textStyle18bold,
             ),
@@ -34,7 +34,7 @@ class EditProfileView extends StatelessWidget {
               hintText: "Last Name",
               controller: TextEditingController(),
             ),
-            const Text(
+            Text(
               "Email",
               style: AppStyles.textStyle18bold,
             ),

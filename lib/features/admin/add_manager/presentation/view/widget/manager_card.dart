@@ -1,9 +1,8 @@
 import 'package:admin_app/core/constant/app_styles.dart';
-import 'package:admin_app/features/all_tickets/presentation/view/widget/status_button.dart';
 import 'package:flutter/material.dart';
 
-class TicketCard extends StatelessWidget {
-  const TicketCard({super.key});
+class ManagerCard extends StatelessWidget {
+  const ManagerCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,10 @@ class TicketCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const StatusButton(),
+              Text(
+                "01010101010",
+                style: AppStyles.textStyle18black,
+              ),
               PopupMenuButton(
                 color: Colors.white,
                 icon: const Icon(Icons.more_vert),

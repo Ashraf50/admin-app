@@ -1,5 +1,6 @@
 import 'package:admin_app/core/constant/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../../core/constant/app_colors.dart';
 import '../../../../../core/constant/app_images.dart';
@@ -12,6 +13,7 @@ class CustomCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.all(8),
+      width: 200,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(13),
@@ -19,14 +21,14 @@ class CustomCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: 100,
-            height: 100,
+            width: 100.w,
+            height: 100.h,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white,
               border: Border.all(
                 color: const Color(0xff9198B3),
-                width: 5,
+                width: 5.w,
               ),
             ),
             child: Container(
@@ -34,10 +36,10 @@ class CustomCard extends StatelessWidget {
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: AppColors.buttonDrawer,
-                  width: 5,
+                  width: 5.w,
                 ),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   "100%",
                   style: AppStyles.textStyle18bold,
@@ -45,32 +47,29 @@ class CustomCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 16,
+          SizedBox(
+            height: 16.h,
           ),
           Row(
             children: [
-              const Text(
+              Text(
                 "All Tickets",
-                style: TextStyle(fontSize: 20),
+                style: AppStyles.textStyle18black,
               ),
-              const SizedBox(
-                width: 10,
+              SizedBox(
+                width: 10.w,
               ),
               SvgPicture.asset(
                 Assets.ticket,
-                height: 28,
+                height: 28.h,
               )
             ],
           ),
-          const Align(
+          Align(
             alignment: Alignment.bottomLeft,
             child: Text(
               "10",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppStyles.textStyle18bold,
             ),
           )
         ],

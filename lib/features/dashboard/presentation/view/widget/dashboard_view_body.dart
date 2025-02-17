@@ -11,18 +11,24 @@ class DashboardViewBody extends StatelessWidget {
     return CustomScaffold(
       body: ListView(
         children: [
-          GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount:
-                  (MediaQuery.of(context).size.width ~/ 200).toInt(),
-            ),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 4,
-            itemBuilder: (context, index) {
-              return const CustomCard();
-            },
+          // GridView.builder(
+          //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //     crossAxisCount:
+          //         (MediaQuery.of(context).size.width ~/ 200).toInt(),
+          //   ),
+          //   shrinkWrap: true,
+          //   physics: const NeverScrollableScrollPhysics(),
+          //   itemCount: 4,
+          //   itemBuilder: (context, index) {
+          //     return const CustomCard();
+          //   },
+          // ),
+          Wrap(
+            spacing: 5,
+            runSpacing: 5,
+            children: List.generate(4, (index) => const CustomCard()),
           ),
+
           const ChartsDashboard(),
         ],
       ),

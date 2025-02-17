@@ -2,13 +2,12 @@ import 'package:admin_app/core/constant/app_styles.dart';
 import 'package:admin_app/core/widget/custom_app_bar.dart';
 import 'package:admin_app/core/widget/custom_button.dart';
 import 'package:admin_app/core/widget/custom_scaffold.dart';
-import 'package:admin_app/core/widget/custom_text_field.dart';
-import 'package:admin_app/features/all_tickets/presentation/view/widget/formatting_text_fiel.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/widget/drop_down_text_field.dart';
+import '../../../../../../../core/widget/custom_text_field.dart';
+import '../../../../../../../core/widget/drop_down_text_field.dart';
 
-class CreateNewTicketView extends StatelessWidget {
-  const CreateNewTicketView({super.key});
+class AddNewManager extends StatelessWidget {
+  const AddNewManager({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +37,14 @@ class CreateNewTicketView extends StatelessWidget {
               controller: TextEditingController(),
             ),
             Text(
+              "Phone Number",
+              style: AppStyles.textStyle18bold,
+            ),
+            CustomTextfield(
+              hintText: "Phone Number",
+              controller: TextEditingController(),
+            ),
+            Text(
               "Email",
               style: AppStyles.textStyle18bold,
             ),
@@ -46,28 +53,36 @@ class CreateNewTicketView extends StatelessWidget {
               controller: TextEditingController(),
             ),
             Text(
-              'Department',
+              "Department",
               style: AppStyles.textStyle18bold,
             ),
             const DropdownTextField(),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             Text(
-              'Text',
+              "Password",
               style: AppStyles.textStyle18bold,
             ),
-            const FormattingTextField(),
-            const SizedBox(
-              height: 20,
+            CustomTextfield(
+              hintText: "Password",
+              controller: TextEditingController(),
+            ),
+            Text(
+              "Confirm Password",
+              style: AppStyles.textStyle18bold,
+            ),
+            CustomTextfield(
+              hintText: "Confirm Password",
+              controller: TextEditingController(),
             ),
             CustomButton(
               title: "Submit",
               onTap: () {},
             ),
             const SizedBox(
-              height: 30,
-            ),
+              height: 40,
+            )
           ],
         ),
       ),

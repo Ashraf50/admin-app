@@ -153,8 +153,8 @@ class FormattingTextFieldState extends State<FormattingTextField> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Choose Text Color',
                   style: AppStyles.textStyle18black,
@@ -188,8 +188,8 @@ class FormattingTextFieldState extends State<FormattingTextField> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Choose Text Style',
                   style: AppStyles.textStyle18black,

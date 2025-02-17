@@ -1,13 +1,13 @@
 import 'package:admin_app/core/constant/app_styles.dart';
-import 'package:admin_app/features/all_tickets/presentation/view/widget/add_button.dart';
 import 'package:admin_app/core/widget/custom_scaffold.dart';
-import 'package:admin_app/core/widget/custom_search.dart';
-import 'package:admin_app/features/all_tickets/presentation/view/widget/all_tickets_list_view.dart';
+import 'package:admin_app/features/admin/add_record/presentation/view/widget/department_list.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../../../../core/widget/custom_search.dart';
+import '../../../../../all_tickets/presentation/view/widget/add_button.dart';
 
-class AllTicketsViewBody extends StatelessWidget {
-  const AllTicketsViewBody({super.key});
+class AddRecordViewBody extends StatelessWidget {
+  const AddRecordViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class AllTicketsViewBody extends StatelessWidget {
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(13),
                   ),
-                  child:  Text(
+                  child: Text(
                     "10",
                     style: AppStyles.textStyle18bold,
                   ),
@@ -46,7 +46,7 @@ class AllTicketsViewBody extends StatelessWidget {
                 AddButton(
                   title: "Create New",
                   onTap: () {
-                    context.push("/create_ticket");
+                    context.push("/create_record");
                   },
                 )
               ],
@@ -54,7 +54,7 @@ class AllTicketsViewBody extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const AllTicketsListView(),
+            const DepartmentListView(),
             const SizedBox(
               height: 40,
             )

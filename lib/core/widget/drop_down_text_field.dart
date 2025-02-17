@@ -29,7 +29,7 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
           isExpanded: true,
           dropdownColor: Colors.white,
           value: selectedDepartment,
-          hint: const Text(
+          hint: Text(
             'Select department',
             style: AppStyles.textStyle16,
           ),
