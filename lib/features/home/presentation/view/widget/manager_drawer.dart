@@ -5,6 +5,7 @@ import 'package:admin_app/features/home/presentation/view/widget/manager_drawer_
 import 'package:admin_app/features/home/presentation/view/widget/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ManagerDrawer extends StatelessWidget {
   final int activeIndex;
@@ -44,7 +45,9 @@ class ManagerDrawer extends StatelessWidget {
                   height: 20.h,
                 )),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    context.pushReplacement("/sign_in");
+                  },
                   child: const InActiveDrawerItem(
                     drawerItemModel: DrawerItemModel(
                       title: 'Logout account',
