@@ -14,17 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, child) {
-        return MaterialApp.router(
-          builder: FlutterSmartDialog.init(),
-          theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-          routerConfig: appRouter.router,
-          debugShowCheckedModeBanner: false,
-        );
-      },
+      child: MaterialApp.router(
+        builder: FlutterSmartDialog.init(),
+        theme: ThemeData(scaffoldBackgroundColor: Colors.white),
+        routerConfig: appRouter.router,
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
