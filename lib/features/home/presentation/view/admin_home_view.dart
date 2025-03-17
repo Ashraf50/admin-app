@@ -1,10 +1,10 @@
 import 'package:admin_app/core/widget/custom_app_bar.dart';
-import 'package:admin_app/features/admin/add_manager/presentation/view/add_manager_view.dart';
-import 'package:admin_app/features/admin/add_record/presentation/view/add_record.dart';
 import 'package:admin_app/features/all_tickets/presentation/view/all_tickets.dart';
 import 'package:admin_app/features/dashboard/presentation/view/dashboard_view.dart';
 import 'package:admin_app/features/home/presentation/view/widget/admin_drawer.dart';
 import 'package:flutter/material.dart';
+import '../../../add_manager/presentation/view/add_manager_view.dart';
+import '../../../add_record/presentation/view/add_record.dart';
 
 // ignore: must_be_immutable
 class AdminHomeView extends StatefulWidget {

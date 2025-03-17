@@ -4,7 +4,6 @@ import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/core/widget/custom_text_field.dart';
 import 'package:admin_app/features/Auth/presentation/view/widget/check_account_widget.dart';
 import 'package:admin_app/features/Auth/presentation/view/widget/custom_auth_app_bar.dart';
-import 'package:admin_app/features/Auth/presentation/view/widget/role_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +20,6 @@ class _SignInViewBodyState extends State<SignInViewBody> {
   TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool visibility = true;
-  String selectedRole = "Admin";
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -43,35 +41,11 @@ class _SignInViewBodyState extends State<SignInViewBody> {
           SizedBox(
             height: 15.h,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RoleButton(
-                selectedRole: selectedRole,
-                title: "Admin",
-                onTap: () {
-                  setState(() {
-                    selectedRole = "Admin";
-                  });
-                },
-              ),
-              RoleButton(
-                selectedRole: selectedRole,
-                title: "Manager",
-                onTap: () {
-                  setState(() {
-                    selectedRole = "Manager";
-                  });
-                },
-              )
-            ],
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 30.h),
                 Text(
                   "Email",
                   style: AppStyles.textStyle18black,
@@ -129,22 +103,17 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                 CustomButton(
                   title: "Sign In",
                   onTap: () {
-                    if (selectedRole == 'Admin') {
-                      context.push('/admin_home');
-                    } else {
-                      context.push('/manager_home');
-                    }
+                    context.push('/admin_home');
                   },
                 ),
                 SizedBox(height: 20.h),
-                if (selectedRole == "Admin")
-                  CheckedAccount(
-                    title: "You don't have an account?",
-                    buttonTitle: "Sign Up",
-                    buttonOnTap: () {
-                      context.push('/sign_up');
-                    },
-                  ),
+                CheckedAccount(
+                  title: "You don't have an account?",
+                  buttonTitle: "Sign Up",
+                  buttonOnTap: () {
+                    context.push('/sign_up');
+                  },
+                ),
                 SizedBox(height: 20.h),
               ],
             ),
