@@ -38,7 +38,7 @@ class AllTicketsViewBody extends StatelessWidget {
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(13),
                   ),
-                  child:  Text(
+                  child: Text(
                     "10",
                     style: AppStyles.textStyle18bold,
                   ),

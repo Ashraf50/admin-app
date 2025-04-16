@@ -1,3 +1,4 @@
+import 'package:admin_app/core/constant/app_colors.dart';
 import 'package:admin_app/core/constant/app_styles.dart';
 import 'package:admin_app/core/widget/custom_app_bar.dart';
 import 'package:admin_app/core/widget/custom_button.dart';
@@ -79,6 +80,7 @@ class AddNewManager extends StatelessWidget {
             CustomButton(
               title: "Submit",
               onTap: () {},
+              color: AppColors.inActiveBlue,
             ),
             const SizedBox(
               height: 40,

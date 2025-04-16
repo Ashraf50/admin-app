@@ -1,4 +1,7 @@
 import 'package:admin_app/core/constant/app_images.dart';
+import 'package:admin_app/core/helper/api_helper.dart';
+import 'package:admin_app/features/Auth/data/repo/auth_repo.dart';
+import 'package:admin_app/features/Auth/data/repo/auth_repo_impl.dart';
 import 'package:admin_app/features/home/data/model/drawer_model.dart';
 import 'package:admin_app/features/home/presentation/view/widget/active_and_inactive_item.dart';
 import 'package:admin_app/features/home/presentation/view/widget/admin_drawer_item_list_view.dart';
@@ -46,7 +49,9 @@ class AdminDrawer extends StatelessWidget {
                 )),
                 InkWell(
                   onTap: () {
-                    context.push('/sign_in');
+                    context.go('/sign_in');
+                    AuthRepo authRepo = AuthRepoImpl(ApiHelper());
+                    authRepo.logout();
                   },
                   child: const InActiveDrawerItem(
                     drawerItemModel: DrawerItemModel(

@@ -1,8 +1,13 @@
 import 'package:admin_app/core/constant/app_styles.dart';
+import 'package:admin_app/features/add_manager/data/model/manager_model/manager_model.dart';
+import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class ManagerCard extends StatelessWidget {
-  const ManagerCard({super.key});
+  final ManagerModel manager;
+  const ManagerCard({super.key, required this.manager});
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +22,13 @@ class ManagerCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Title",
+                    manager.service?.name?? "null",
                     style: AppStyles.textStyle18black,
                   ),
                   Row(
                     children: [
                       Text(
-                        "Subtitle",
+                        manager.user!.name!,
                         style: AppStyles.textStyle16,
                       ),
                       const Icon(
@@ -35,7 +40,7 @@ class ManagerCard extends StatelessWidget {
                 ],
               ),
               Text(
-                "01010101010",
+                manager.user!.email!,
                 style: AppStyles.textStyle18black,
               ),
               PopupMenuButton(
@@ -56,13 +61,34 @@ class ManagerCard extends StatelessWidget {
                   if (value == 'edit') {
                     // Handle edit action
                   } else if (value == 'delete') {
-                    // Handle delete action
+                  _showDeleteDialog(context);
                   }
                 },
               ),
             ],
           ),
           const Divider(),
+        ],
+      ),
+    );
+  }
+  void _showDeleteDialog(BuildContext context) {
+    SmartDialog.show(
+      builder: (_) => AlertDialog(
+        title: const Text('Confirm Delete'),
+        content: const Text('Are you sure you want to delete this manager?'),
+        actions: [
+          TextButton(
+            onPressed: () => SmartDialog.dismiss(),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<AddManagerCubit>().deleteManager(manager.id!);
+              SmartDialog.dismiss();
+            },
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
         ],
       ),
     );

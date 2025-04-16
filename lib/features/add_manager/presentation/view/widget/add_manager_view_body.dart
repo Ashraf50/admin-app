@@ -1,7 +1,9 @@
 import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/features/add_manager/presentation/view/widget/all_manager_list_view.dart';
+import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
 import 'package:admin_app/features/all_tickets/presentation/view/widget/add_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../../../core/constant/app_styles.dart';
 import '../../../../../../../core/widget/custom_search.dart';
@@ -11,6 +13,8 @@ class AddManagerViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController searchController = TextEditingController();
+    final cubit = context.read<AddManagerCubit>();
     return CustomScaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -18,12 +22,16 @@ class AddManagerViewBody extends StatelessWidget {
         child: ListView(
           children: [
             CustomSearch(
-              controller: TextEditingController(),
+              controller: searchController,
               hintText: "search",
-              prefixIcon: const Icon(
-                Icons.search,
-                color: Colors.grey,
-              ),
+              prefixIcon: const Icon(Icons.search, color: Colors.grey),
+              onChange: (value) {
+                if (value.isEmpty) {
+                  cubit.fetchManager();
+                } else {
+                  cubit.searchManager(value);
+                }
+              },
             ),
             const SizedBox(
               height: 20,

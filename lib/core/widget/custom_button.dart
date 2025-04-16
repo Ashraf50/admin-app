@@ -1,14 +1,15 @@
-import 'package:admin_app/core/constant/app_colors.dart';
 import 'package:admin_app/core/constant/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final String title;
   final void Function() onTap;
+  final Color color;
   const CustomButton({
     super.key,
     required this.title,
     required this.onTap,
+    required this.color,
   });
 
   @override
@@ -19,7 +20,7 @@ class CustomButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 13),
         decoration: BoxDecoration(
-          color: AppColors.blue,
+          color:color,
           borderRadius: BorderRadius.circular(13),
         ),
         child: Center(

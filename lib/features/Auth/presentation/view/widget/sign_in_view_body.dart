@@ -1,11 +1,17 @@
+import 'package:admin_app/core/constant/app_colors.dart';
 import 'package:admin_app/core/constant/app_styles.dart';
 import 'package:admin_app/core/widget/custom_button.dart';
 import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/core/widget/custom_text_field.dart';
-import 'package:admin_app/features/Auth/presentation/view/widget/check_account_widget.dart';
+import 'package:admin_app/core/widget/custom_toast.dart';
 import 'package:admin_app/features/Auth/presentation/view/widget/custom_auth_app_bar.dart';
+import 'package:admin_app/features/Auth/presentation/view_model/bloc/auth_bloc.dart';
+import 'package:admin_app/features/home/presentation/view_model/cubit/user_data_cubit.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
 
 class SignInViewBody extends StatefulWidget {
@@ -21,105 +27,158 @@ class _SignInViewBodyState extends State<SignInViewBody> {
   final formKey = GlobalKey<FormState>();
   bool visibility = true;
   @override
+  void initState() {
+    super.initState();
+    emailController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      body: ListView(
-        children: [
-          const CustomAuthAppBar(
-            title: 'Welcome Back!',
-            subTitle:
-                'To keep connected with us please\nlogin with your personal Info',
-          ),
-          SizedBox(
-            height: 15.h,
-          ),
-          Text(
-            'Sign In',
-            style: AppStyles.textStyle20blackBold,
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: 15.h,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is LoginLoading) {
+          SmartDialog.showLoading();
+        } else if (state is LoginSuccess) {
+          context.read<UserDataCubit>().fetchUserData(state.token);
+          context.go('/admin_home');
+          CustomToast.show(
+            message: state.successMessage,
+            alignment: Alignment.topCenter,
+            backgroundColor: AppColors.toastColor,
+          );
+          SmartDialog.dismiss();
+        } else if (state is LoginFailure) {
+          SmartDialog.dismiss();
+          CustomToast.show(
+            message: state.errMessage,
+            backgroundColor: Colors.red,
+          );
+        }
+      },
+      builder: (context, state) {
+        return CustomScaffold(
+          body: Form(
+            key: formKey,
+            child: ListView(
               children: [
+                const CustomAuthAppBar(
+                  title: 'Welcome Back!',
+                  subTitle:
+                      'To keep connected with us please\nlogin with your personal Info',
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
                 Text(
-                  "Email",
-                  style: AppStyles.textStyle18black,
+                  'Sign In',
+                  style: AppStyles.textStyle20blackBold,
+                  textAlign: TextAlign.center,
                 ),
-                CustomTextfield(
-                  hintText: "Enter your Email",
-                  controller: TextEditingController(),
-                  prefixIcon: const Icon(Icons.email),
+                SizedBox(
+                  height: 15.h,
                 ),
-                Text(
-                  "Password",
-                  style: AppStyles.textStyle18black,
-                ),
-                CustomTextfield(
-                  hintText: "Enter your password",
-                  prefixIcon: const Icon(Icons.lock_sharp),
-                  obscureText: visibility,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        visibility = !visibility;
-                      });
-                    },
-                    icon: visibility
-                        ? const Icon(
-                            Icons.visibility_off,
-                            color: Colors.grey,
-                          )
-                        : const Icon(
-                            Icons.visibility,
-                            color: Colors.grey,
-                          ),
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: passwordController,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                      focusColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        context.push('/forget_pass');
-                      },
-                      child: Text(
-                        'forget password!',
-                        style: AppStyles.textStyle18blue,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Email",
+                        style: AppStyles.textStyle18black,
                       ),
-                    )
-                  ],
+                      CustomTextfield(
+                        hintText: "Enter your email",
+                        obscureText: false,
+                        prefixIcon: const Icon(Icons.email),
+                        controller: emailController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          return value != null &&
+                                  !EmailValidator.validate(value)
+                              ? " Enter a valid email"
+                              : null;
+                        },
+                      ),
+                      Text(
+                        "Password",
+                        style: AppStyles.textStyle18black,
+                      ),
+                      CustomTextfield(
+                        hintText: "Enter your password",
+                        prefixIcon: const Icon(Icons.lock_sharp),
+                        obscureText: visibility,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              visibility = !visibility;
+                            });
+                          },
+                          icon: visibility
+                              ? const Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.grey,
+                                )
+                              : const Icon(
+                                  Icons.visibility,
+                                  color: Colors.grey,
+                                ),
+                        ),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: passwordController,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            focusColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            onTap: () {
+                              context.push('/forget_pass');
+                            },
+                            child: Text(
+                              'forget password!',
+                              style: AppStyles.textStyle18blue,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 15.h),
+                      CustomButton(
+                        title: "Sign In",
+                        color: emailController.text.isEmpty
+                            ? AppColors.inActiveBlue
+                            : AppColors.activeBlue,
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            BlocProvider.of<AuthBloc>(context).add(LoginEvent(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ));
+                          } else {
+                            CustomToast.show(
+                              message: "check the email or password",
+                            );
+                          }
+                        },
+                      ),
+                      SizedBox(height: 20.h),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 15.h),
-                CustomButton(
-                  title: "Sign In",
-                  onTap: () {
-                    context.push('/admin_home');
-                  },
-                ),
-                SizedBox(height: 20.h),
-                CheckedAccount(
-                  title: "You don't have an account?",
-                  buttonTitle: "Sign Up",
-                  buttonOnTap: () {
-                    context.push('/sign_up');
-                  },
-                ),
-                SizedBox(height: 20.h),
               ],
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -1,12 +1,14 @@
+import 'package:admin_app/features/add_record/data/model/record_model.dart';
+import 'package:admin_app/features/add_record/presentation/view_model/cubit/all_record_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class RecordCard extends StatelessWidget {
-  final String title;
-  final int index;
+  final RecordModel record;
   const RecordCard({
     super.key,
-    required this.title,
-    required this.index,
+    required this.record,
   });
 
   @override
@@ -19,7 +21,7 @@ class RecordCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#${(index + 1).toString()}",
+                "#${record.id}",
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontSize: 16,
@@ -27,39 +29,83 @@ class RecordCard extends StatelessWidget {
                 ),
               ),
               Text(
-                title,
+                record.name ?? '',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              PopupMenuButton(
+              PopupMenuButton<String>(
                 color: Colors.white,
                 icon: const Icon(Icons.more_vert),
-                itemBuilder: (BuildContext context) => [
-                  const PopupMenuItem(
-                    value: 'edit',
-                    child: Text('Edit'),
-                  ),
-                  const PopupMenuItem(
-                    value: 'delete',
-                    child: Text('Delete'),
-                  ),
+                itemBuilder: (context) => const [
+                  PopupMenuItem(value: 'edit', child: Text('Edit')),
+                  PopupMenuItem(value: 'delete', child: Text('Delete')),
                 ],
                 onSelected: (value) {
-                  // Handle menu item selection
                   if (value == 'edit') {
-                    // Handle edit action
+                    _showEditDialog(context);
                   } else if (value == 'delete') {
-                    // Handle delete action
+                    _showDeleteDialog(context);
                   }
                 },
               ),
             ],
           ),
         ),
-        const Divider()
+        const Divider(),
       ],
+    );
+  }
+
+  void _showEditDialog(BuildContext context) {
+    final nameController = TextEditingController(text: record.name);
+    SmartDialog.show(
+      builder: (_) => AlertDialog(
+        title: const Text('Edit Record'),
+        content: TextField(
+          controller: nameController,
+          decoration: const InputDecoration(labelText: 'Name'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => SmartDialog.dismiss(),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<AllRecordCubit>().editRecord(
+                    record.id!,
+                    nameController.text,
+                  );
+              SmartDialog.dismiss();
+            },
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDeleteDialog(BuildContext context) {
+    SmartDialog.show(
+      builder: (_) => AlertDialog(
+        title: const Text('Confirm Delete'),
+        content: const Text('Are you sure you want to delete this record?'),
+        actions: [
+          TextButton(
+            onPressed: () => SmartDialog.dismiss(),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<AllRecordCubit>().deleteRecord(record.id!);
+              SmartDialog.dismiss();
+            },
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
     );
   }
 }

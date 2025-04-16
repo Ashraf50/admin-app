@@ -1,8 +1,28 @@
+import 'dart:io';
 import 'package:admin_app/features/home/presentation/view/widget/change_phot_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfilePhoto extends StatelessWidget {
-  const ProfilePhoto({super.key});
+  final File? avatar;
+  final Function(File) onImagePicked;
+
+  const ProfilePhoto({
+    super.key,
+    required this.avatar,
+    required this.onImagePicked,
+  });
+
+  Future<void> _pickImage(BuildContext context, ImageSource source) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      final pickedImage = File(pickedFile.path);
+      onImagePicked(pickedImage);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,16 +30,27 @@ class ProfilePhoto extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          const CircleAvatar(
-            radius: 80,
-            backgroundImage: AssetImage("assets/img/profile.jpg"),
-          ),
+          avatar != null
+              ? CircleAvatar(
+                  radius: 80,
+                  backgroundImage: FileImage(avatar!),
+                )
+              : const CircleAvatar(
+                  radius: 80,
+                  backgroundImage: AssetImage("assets/img/add_image.png"),
+                ),
           Positioned(
             bottom: -3,
             right: 11,
             child: ChangePhotoButton(
-              choosePhoto: () {},
-              takePhoto: () {},
+              choosePhoto: () {
+                _pickImage(context, ImageSource.gallery);
+                context.pop();
+              },
+              takePhoto: () {
+                _pickImage(context, ImageSource.camera);
+                context.pop();
+              },
             ),
           )
         ],

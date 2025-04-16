@@ -35,7 +35,7 @@ class CustomAuthAppBar extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           Text(
-          subTitle,
+            subTitle,
             style: AppStyles.textStyle16White,
             textAlign: TextAlign.center,
           ),
