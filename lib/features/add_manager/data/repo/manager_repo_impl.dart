@@ -11,8 +11,37 @@ class ManagerRepoImpl implements ManagerRepo {
   ApiHelper apiHelper;
   ManagerRepoImpl(this.apiHelper);
   @override
-  Future<Either<Failure, Unit>> createManager({required String name}) async {
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> createManager({
+    required String serviceId,
+    required String name,
+    required String email,
+    required String password,
+    required String confirmPass,
+  }) async {
+    try {
+      final token = await getToken();
+      await apiHelper.post(
+        '${AppStrings.baseUrl}/api/admin/managers',
+        {
+          "service_id": serviceId,
+          "user": {
+            "name": name,
+            "email": email,
+            "password": password,
+            "password_confirmation": confirmPass,
+          }
+        },
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      return const Right(unit);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
   }
 
   @override
@@ -35,10 +64,39 @@ class ManagerRepoImpl implements ManagerRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> editManager(
-      {required int id, required String name}) async {
-    // TODO: implement editManager
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> editManager({
+    required String serviceId,
+    required int managerId,
+    required String name,
+    required String email,
+    required String password,
+    required String confirmPass,
+  }) async {
+    try {
+      final token = await getToken();
+      final data = {
+        "service_id": serviceId,
+        "user": {
+          "name": name,
+          "email": email,
+          "password": password,
+          "password_confirmation": confirmPass,
+        }
+      };
+      await apiHelper.put(
+        '${AppStrings.baseUrl}/api/admin/managers$managerId',
+        data,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      return const Right(unit);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
   }
 
   @override

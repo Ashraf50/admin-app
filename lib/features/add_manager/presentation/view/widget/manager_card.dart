@@ -1,4 +1,5 @@
 import 'package:admin_app/core/constant/app_styles.dart';
+import 'package:admin_app/core/widget/custom_text_field.dart';
 import 'package:admin_app/features/add_manager/data/model/manager_model/manager_model.dart';
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
 import 'package:flutter/material.dart';
@@ -22,26 +23,28 @@ class ManagerCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    manager.service?.name?? "null",
+                    manager.service?.name ?? "null",
                     style: AppStyles.textStyle18black,
                   ),
                   Row(
                     children: [
+                      const Icon(
+                        Icons.person,
+                        color: Colors.grey,
+                      ),
                       Text(
                         manager.user!.name!,
                         style: AppStyles.textStyle16,
                       ),
-                      const Icon(
-                        Icons.person,
-                        color: Colors.grey,
-                      )
                     ],
                   ),
                 ],
               ),
-              Text(
-                manager.user!.email!,
-                style: AppStyles.textStyle18black,
+              Expanded(
+                child: Text(
+                  manager.user!.email!,
+                  style: AppStyles.textStyle18black,
+                ),
               ),
               PopupMenuButton(
                 color: Colors.white,
@@ -57,11 +60,10 @@ class ManagerCard extends StatelessWidget {
                   ),
                 ],
                 onSelected: (value) {
-                  // Handle menu item selection
                   if (value == 'edit') {
-                    // Handle edit action
+                    _showEditDialog(context);
                   } else if (value == 'delete') {
-                  _showDeleteDialog(context);
+                    _showDeleteDialog(context);
                   }
                 },
               ),
@@ -72,6 +74,65 @@ class ManagerCard extends StatelessWidget {
       ),
     );
   }
+
+  void _showEditDialog(BuildContext context) {
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final confirmPassController = TextEditingController();
+    final idController = TextEditingController();
+    SmartDialog.show(
+      builder: (_) => AlertDialog(
+        title: const Text('Edit Manager'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomTextfield(
+              hintText: "Record id",
+              controller: idController,
+            ),
+            CustomTextfield(
+              hintText: "name",
+              controller: nameController,
+            ),
+            CustomTextfield(
+              hintText: "email",
+              controller: emailController,
+            ),
+            CustomTextfield(
+              hintText: "password",
+              controller: passwordController,
+            ),
+            CustomTextfield(
+              hintText: "confirm password",
+              controller: confirmPassController,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => SmartDialog.dismiss(),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<AddManagerCubit>().editManager(
+                    serviceId: idController.text,
+                    managerId: manager.id!,
+                    name: nameController.text,
+                    email: emailController.text,
+                    password: passwordController.text,
+                    confirmPass: confirmPassController.text,
+                  );
+              SmartDialog.dismiss();
+            },
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _showDeleteDialog(BuildContext context) {
     SmartDialog.show(
       builder: (_) => AlertDialog(

@@ -1,22 +1,18 @@
-import 'package:admin_app/core/constant/app_styles.dart';
+import 'package:admin_app/core/constant/app_colors.dart';
 import 'package:flutter/material.dart';
+import '../../features/add_record/data/model/record_model.dart';
 
-class DropdownTextField extends StatefulWidget {
-  const DropdownTextField({super.key});
+class DropdownTextField extends StatelessWidget {
+  final List<RecordModel> records;
+  final ValueChanged<RecordModel> onChanged;
+  final RecordModel? selectedRecord;
+  const DropdownTextField({
+    super.key,
+    required this.records,
+    required this.onChanged,
+    required this.selectedRecord,
+  });
 
-  @override
-  State<DropdownTextField> createState() => _DropdownTextFieldState();
-}
-
-class _DropdownTextFieldState extends State<DropdownTextField> {
-  String? selectedDepartment;
-  final List<String> departments = [
-    'Marketing',
-    'Sales',
-    'Engineering',
-    'Human Resources',
-    'Finance'
-  ];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,27 +21,22 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
+        child: DropdownButton<RecordModel>(
           isExpanded: true,
-          dropdownColor: Colors.white,
-          value: selectedDepartment,
-          hint: Text(
-            'Select department',
-            style: AppStyles.textStyle16,
-          ),
+          value: selectedRecord,
+          dropdownColor: AppColors.white,
+          hint: const Text('Select department'),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-          items: departments.map((String department) {
-            return DropdownMenuItem<String>(
-              value: department,
-              child: Text(department),
+          items: records.map((record) {
+            return DropdownMenuItem<RecordModel>(
+              value: record,
+              child: Text(record.name!),
             );
           }).toList(),
-          onChanged: (String? newValue) {
-            setState(
-              () {
-                selectedDepartment = newValue;
-              },
-            );
+          onChanged: (record) {
+            if (record != null) {
+              onChanged(record);
+            }
           },
         ),
       ),

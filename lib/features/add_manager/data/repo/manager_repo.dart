@@ -9,8 +9,18 @@ abstract class ManagerRepo {
       {required String name});
   Future<Either<Failure, Unit>> deleteManager(int id);
   Future<Either<Failure, Unit>> editManager({
-    required int id,
+    required String serviceId,
+    required int managerId,
     required String name,
+    required String email,
+    required String password,
+    required String confirmPass,
   });
-  Future<Either<Failure, Unit>> createManager({required String name});
+  Future<Either<Failure, Unit>> createManager({
+    required String serviceId,
+    required String name,
+    required String email,
+    required String password,
+    required String confirmPass,
+  });
 }

@@ -28,7 +28,7 @@ class _EditProfileViewState extends State<EditProfileView> {
   final TextEditingController phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   File? avatar;
-    @override
+  @override
   void initState() {
     super.initState();
     nameController.addListener(() {

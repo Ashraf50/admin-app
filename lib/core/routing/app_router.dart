@@ -2,7 +2,7 @@ import 'package:admin_app/features/Auth/presentation/view/forget_password_view.d
 import 'package:admin_app/features/Auth/presentation/view/reset_password_view.dart';
 import 'package:admin_app/features/Auth/presentation/view/sign_in_view.dart';
 import 'package:admin_app/features/add_manager/presentation/view/widget/add_new_manager.dart';
-import 'package:admin_app/features/all_tickets/presentation/view/widget/create_new_ticket_view.dart';
+import 'package:admin_app/features/all_tickets/data/model/ticket_model/ticket_model/ticket_model.dart';
 import 'package:admin_app/features/home/presentation/view/admin_home_view.dart';
 import 'package:admin_app/features/home/presentation/view/widget/edit_profile_view.dart';
 import 'package:go_router/go_router.dart';
@@ -34,16 +34,14 @@ class AppRouter {
             return AdminHomeView(selectedIndex: pageIndex);
           }),
       GoRoute(
-        path: '/ticket_details',
-        builder: (context, state) => const TicketsDetailsView(),
-      ),
+          path: '/ticket_details',
+          builder: (context, state) {
+            var ticket = state.extra as TicketModel;
+            return TicketsDetailsView(ticket: ticket);
+          }),
       GoRoute(
         path: '/edit_profile',
         builder: (context, state) => const EditProfileView(),
-      ),
-      GoRoute(
-        path: '/create_ticket',
-        builder: (context, state) => const CreateNewTicketView(),
       ),
       GoRoute(
         path: '/create_record',
