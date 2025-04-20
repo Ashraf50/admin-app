@@ -1,3 +1,4 @@
+import 'package:admin_app/core/widget/photo_view.dart';
 import 'package:admin_app/features/Auth/presentation/view/forget_password_view.dart';
 import 'package:admin_app/features/Auth/presentation/view/reset_password_view.dart';
 import 'package:admin_app/features/Auth/presentation/view/sign_in_view.dart';
@@ -38,6 +39,12 @@ class AppRouter {
           builder: (context, state) {
             var ticket = state.extra as TicketModel;
             return TicketsDetailsView(ticket: ticket);
+          }),
+      GoRoute(
+          path: '/photo_view',
+          builder: (context, state) {
+            var image = state.extra as String;
+            return PhotoViewer(image: image);
           }),
       GoRoute(
         path: '/edit_profile',
