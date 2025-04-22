@@ -6,18 +6,18 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfilePhoto extends StatelessWidget {
   final File? avatar;
+  final String image;
   final Function(File) onImagePicked;
-
   const ProfilePhoto({
     super.key,
     required this.avatar,
+    required this.image,
     required this.onImagePicked,
   });
 
   Future<void> _pickImage(BuildContext context, ImageSource source) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: source);
-
     if (pickedFile != null) {
       final pickedImage = File(pickedFile.path);
       onImagePicked(pickedImage);
@@ -35,9 +35,9 @@ class ProfilePhoto extends StatelessWidget {
                   radius: 80,
                   backgroundImage: FileImage(avatar!),
                 )
-              : const CircleAvatar(
+              : CircleAvatar(
                   radius: 80,
-                  backgroundImage: AssetImage("assets/img/add_image.png"),
+                  backgroundImage: NetworkImage(image),
                 ),
           Positioned(
             bottom: -3,

@@ -54,7 +54,7 @@ class UserInfoListTile extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    context.push("/edit_profile");
+                    context.push("/edit_profile", extra: state.userData);
                   },
                   icon: const Icon(Icons.edit),
                 )

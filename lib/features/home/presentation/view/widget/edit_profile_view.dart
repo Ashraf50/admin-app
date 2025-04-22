@@ -14,9 +14,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
+import '../../../data/model/user_model/user_model.dart';
 
 class EditProfileView extends StatefulWidget {
-  const EditProfileView({super.key});
+  final UserModel user;
+  const EditProfileView({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<EditProfileView> createState() => _EditProfileViewState();
@@ -77,6 +82,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                 children: [
                   ProfilePhoto(
                     avatar: avatar,
+                    image: widget.user.data!.avatar!,
                     onImagePicked: (pickedImage) {
                       setState(() {
                         avatar = pickedImage;
@@ -88,7 +94,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
-                    hintText: "name",
+                    hintText: widget.user.data!.name!,
                     controller: nameController,
                     prefixIcon: const Icon(Icons.person),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -105,7 +111,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
-                    hintText: "email",
+                    hintText:  widget.user.data!.email!,
                     obscureText: false,
                     prefixIcon: const Icon(Icons.email),
                     controller: emailController,
@@ -121,7 +127,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
-                    hintText: "phone",
+                    hintText:  widget.user.data!.phone!,
                     obscureText: false,
                     prefixIcon: const Icon(Icons.phone),
                     controller: phoneController,

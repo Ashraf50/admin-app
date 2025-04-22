@@ -4,6 +4,7 @@ import 'package:admin_app/features/Auth/presentation/view/reset_password_view.da
 import 'package:admin_app/features/Auth/presentation/view/sign_in_view.dart';
 import 'package:admin_app/features/add_manager/presentation/view/widget/add_new_manager.dart';
 import 'package:admin_app/features/all_tickets/data/model/ticket_model/ticket_model/ticket_model.dart';
+import 'package:admin_app/features/home/data/model/user_model/user_model.dart';
 import 'package:admin_app/features/home/presentation/view/admin_home_view.dart';
 import 'package:admin_app/features/home/presentation/view/widget/edit_profile_view.dart';
 import 'package:go_router/go_router.dart';
@@ -47,9 +48,11 @@ class AppRouter {
             return PhotoViewer(image: image);
           }),
       GoRoute(
-        path: '/edit_profile',
-        builder: (context, state) => const EditProfileView(),
-      ),
+          path: '/edit_profile',
+          builder: (context, state) {
+            var userData = state.extra as UserModel;
+            return EditProfileView(user: userData);
+          }),
       GoRoute(
         path: '/create_record',
         builder: (context, state) => const CreateNewRecord(),
