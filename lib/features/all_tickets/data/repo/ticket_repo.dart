@@ -3,7 +3,7 @@ import 'package:admin_app/features/all_tickets/data/model/ticket_model/ticket_mo
 import 'package:dartz/dartz.dart';
 
 abstract class TicketRepo {
-  Future<Either<Failure, List<TicketModel>>> fetchAllTickets();
+  Future<List<TicketModel>> fetchAllTickets({int page = 1});
   Future<Either<Failure, List<TicketModel>>> sortTicket({
     required String from,
     required String to,

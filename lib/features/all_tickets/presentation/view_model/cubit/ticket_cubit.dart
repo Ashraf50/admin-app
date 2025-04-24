@@ -5,23 +5,39 @@ part 'ticket_state.dart';
 
 class TicketCubit extends Cubit<TicketState> {
   TicketRepo ticketRepo;
+  List<TicketModel> allTickets = [];
+  int currentPage = 1;
+  bool hasMore = true;
+  bool isFetching = false;
+
   TicketCubit(this.ticketRepo) : super(TicketInitial());
-  Future<void> fetchTickets() async {
-    emit(FetchTicketLoading());
-    var result = await ticketRepo.fetchAllTickets();
-    result.fold(
-      (failure) {
-        emit(
-          FetchTicketFailure(errMessage: failure.errMessage),
-        );
-      },
-      (tickets) {
-        emit(
-          FetchTicketSuccess(tickets: tickets),
-        );
-      },
-    );
+
+  Future<void> fetchTickets({bool loadMore = false}) async {
+    if (isFetching || !hasMore) return;
+    isFetching = true;
+    if (!loadMore) {
+      emit(FetchTicketLoading());
+    }
+    try {
+      final fetchedTickets =
+          await ticketRepo.fetchAllTickets(page: currentPage);
+      if (fetchedTickets.isEmpty) {
+        hasMore = false;
+      } else {
+        allTickets = [...allTickets, ...fetchedTickets];
+        currentPage++;
+      }
+      emit(FetchTicketSuccess(tickets: List.from(allTickets)));
+    } catch (e) {
+      emit(FetchTicketFailure(errMessage: "Failed to load tickets"));
+    }
+    isFetching = false;
   }
+
+  void loadMoreTickets() {
+    fetchTickets(loadMore: true);
+  }
+
 
   Future<void> fetchSortedTickets(
       {required String from,

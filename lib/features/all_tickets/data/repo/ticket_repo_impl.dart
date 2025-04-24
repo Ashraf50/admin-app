@@ -11,24 +11,23 @@ class TicketRepoImpl implements TicketRepo {
   ApiHelper apiHelper;
   TicketRepoImpl(this.apiHelper);
   @override
-  Future<Either<Failure, List<TicketModel>>> fetchAllTickets() async {
+  Future<List<TicketModel>> fetchAllTickets({int page = 1}) async {
     try {
       final token = await getToken();
       var response = await apiHelper.get(
-        '${AppStrings.baseUrl}/api/admin/tickets',
+        '${AppStrings.baseUrl}/api/admin/tickets?per_page=10',
         headers: {
           'Authorization': 'Bearer $token',
         },
+        queryParameters: {'page': page},
       );
       var data = response.data;
       var ticketsList =
           (data["data"] as List).map((e) => TicketModel.fromJson(e)).toList();
-      return Right(ticketsList);
+      return ticketsList;
     } catch (e) {
-      if (e is DioException) {
-        return Left(ServerFailure.fromDiorError(e));
-      }
-      return Left(ServerFailure(e.toString()));
+      print("Error fetching tickets: $e");
+      return [];
     }
   }
 
