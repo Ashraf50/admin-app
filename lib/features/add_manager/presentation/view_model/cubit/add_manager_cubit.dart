@@ -24,39 +24,12 @@ class AddManagerCubit extends Cubit<AddManagerState> {
     );
   }
 
-  Future<bool> createManager({
-    required String serviceId,
-    required String name,
-    required String email,
-    required String password,
-    required String confirmPass,
-  }) async {
-    emit(FetchManagerLoading());
-    final result = await managerRepo.createManager(
-      name: name,
-      email: email,
-      password: password,
-      confirmPass: confirmPass,
-      serviceId: serviceId,
-    );
-    return result.fold(
-      (failure) {
-        emit(FetchManagerFailure(errMessage: failure.errMessage));
-        return false;
-      },
-      (_) async {
-        await fetchManager();
-        return true;
-      },
-    );
-  }
-
   Future<void> searchManager(String name) async {
     emit(FetchManagerLoading());
     var result = await managerRepo.searchManager(name: name);
     result.fold(
       (failure) {
-        emit(FetchManagerFailure(errMessage: failure.errMessage));
+        emit(SearchManagerFailure(errMessage: failure.errMessage));
       },
       (managers) {
         emit(FetchManagerSuccess(managers: managers));
@@ -65,11 +38,10 @@ class AddManagerCubit extends Cubit<AddManagerState> {
   }
 
   Future<void> deleteManager(int id) async {
-    emit(FetchManagerLoading());
     var result = await managerRepo.deleteManager(id);
     result.fold(
       (failure) {
-        emit(FetchManagerFailure(errMessage: failure.errMessage));
+        emit(DeleteManagerFailure(errMessage: failure.errMessage));
       },
       (_) async {
         await fetchManager();
@@ -85,7 +57,6 @@ class AddManagerCubit extends Cubit<AddManagerState> {
     required String password,
     required String confirmPass,
   }) async {
-    emit(FetchManagerLoading());
     var result = await managerRepo.editManager(
       serviceId: serviceId,
       name: name,
@@ -96,7 +67,7 @@ class AddManagerCubit extends Cubit<AddManagerState> {
     );
     result.fold(
       (failure) {
-        emit(FetchManagerFailure(errMessage: failure.errMessage));
+        emit(EditManagerFailure(errMessage: failure.errMessage));
       },
       (_) async {
         await fetchManager();

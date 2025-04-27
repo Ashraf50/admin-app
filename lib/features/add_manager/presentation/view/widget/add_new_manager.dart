@@ -5,6 +5,7 @@ import 'package:admin_app/core/widget/custom_button.dart';
 import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/core/widget/custom_toast.dart';
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
+import 'package:admin_app/features/add_manager/presentation/view_model/cubit/create_manager_cubit.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,19 +50,21 @@ class _AddNewManagerState extends State<AddNewManager> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddManagerCubit, AddManagerState>(
+    return BlocListener<CreateManagerCubit, CreateManagerState>(
       listener: (context, state) {
-        if (state is FetchManagerLoading) {
+        if (state is CreateManagerLoading) {
           SmartDialog.showLoading();
-        } else if (state is FetchManagerFailure) {
+        } else if (state is CreateManagerFailure) {
           SmartDialog.dismiss();
           CustomToast.show(
             message: state.errMessage,
+            alignment: Alignment.bottomCenter,
             backgroundColor: Colors.red,
           );
-        } else {
+        } else if (state is CreateManagerSuccess) {
           SmartDialog.dismiss();
           context.pop(context);
+          context.read<AddManagerCubit>().fetchManager();
           CustomToast.show(
             message: "Manager Created Successfully",
             alignment: Alignment.topCenter,
@@ -157,7 +160,7 @@ class _AddNewManagerState extends State<AddNewManager> {
                   controller: passwordController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
-                    if (value!.length < 6) {
+                    if (value!.length < 8) {
                       return "your password is too short";
                     } else {
                       return null;
@@ -193,7 +196,7 @@ class _AddNewManagerState extends State<AddNewManager> {
                   title: "Submit",
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
-                      final cubit = context.read<AddManagerCubit>();
+                      final cubit = context.read<CreateManagerCubit>();
                       await cubit.createManager(
                         name: nameController.text,
                         email: emailController.text,

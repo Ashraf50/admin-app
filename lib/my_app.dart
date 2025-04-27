@@ -15,6 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
+import 'features/add_manager/presentation/view_model/cubit/create_manager_cubit.dart';
+
 class MyApp extends StatelessWidget {
   final AppRouter appRouter;
   final String token;
@@ -47,6 +49,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               TicketCubit(TicketRepoImpl(ApiHelper()))..fetchTickets(),
+        ),
+        BlocProvider(
+          create: (context) => CreateManagerCubit(ManagerRepoImpl(ApiHelper())),
         )
       ],
       child: ScreenUtilInit(

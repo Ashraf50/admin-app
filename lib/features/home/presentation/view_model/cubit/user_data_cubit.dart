@@ -10,17 +10,17 @@ class UserDataCubit extends Cubit<UserDataState> {
   UserDataCubit(this.userRepo) : super(UserDataInitial());
 
   Future<void> fetchUserData(String token) async {
-    emit(UserDataLoading());
+    emit(GetUserDataLoading());
     final result = await userRepo.fetchUserData(token: token);
     result.fold(
       (failure) {
         emit(
-          UserDataFailure(errMessage: failure.errMessage),
+          GetUserDataFailure(errMessage: failure.errMessage),
         );
       },
       (data) {
         emit(
-          UserDataSuccess(userData: data),
+          GetUserDataSuccess(userData: data),
         );
       },
     );
@@ -32,7 +32,7 @@ class UserDataCubit extends Cubit<UserDataState> {
     required String phone,
     required File avatar,
   }) async {
-    emit(UserDataLoading());
+    emit(UpdateUserDataLoading());
     final result = await userRepo.updateData(
       name: name,
       email: email,
@@ -41,10 +41,10 @@ class UserDataCubit extends Cubit<UserDataState> {
     );
     result.fold(
       (failure) {
-        emit(UserDataFailure(errMessage: failure.errMessage));
+        emit(UpdateUserDataFailure(errMessage: failure.errMessage));
       },
       (data) {
-        emit(UserDataSuccess(userData: data));
+        emit(UpdateUserDataSuccess(userData: data));
       },
     );
   }

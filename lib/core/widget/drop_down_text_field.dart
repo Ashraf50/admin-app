@@ -25,7 +25,7 @@ class DropdownTextField extends StatelessWidget {
           isExpanded: true,
           value: selectedRecord,
           dropdownColor: AppColors.white,
-          hint: const Text('Select department'),
+          hint: const Text('Select Service'),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           items: records.map((record) {
             return DropdownMenuItem<RecordModel>(

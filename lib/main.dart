@@ -13,8 +13,10 @@ void main() async {
   bool isLoggedIn = await authRepo.isLoggedIn(); //save login state
   final appRouter = AppRouter(isLoggedIn: isLoggedIn);
   final token = await getToken();
-  runApp(MyApp(
-    appRouter: appRouter,
-    token: token ?? '',
-  ));
+  runApp(
+    MyApp(
+      appRouter: appRouter,
+      token: token ?? '',
+    ),
+  );
 }

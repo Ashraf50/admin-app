@@ -24,7 +24,7 @@ class ManagerCard extends StatelessWidget {
                 children: [
                   Text(
                     manager.service?.name ?? "null",
-                    style: AppStyles.textStyle18black,
+                    style: AppStyles.textStyle16,
                   ),
                   Row(
                     children: [
@@ -32,19 +32,36 @@ class ManagerCard extends StatelessWidget {
                         Icons.person,
                         color: Colors.grey,
                       ),
+                      const SizedBox(
+                        width: 5,
+                      ),
                       Text(
                         manager.user!.name!,
-                        style: AppStyles.textStyle16,
+                        style: AppStyles.textStyle18black,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.email,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.sizeOf(context).width * .6,
+                        child: Text(
+                          manager.user!.email!,
+                          style: AppStyles.textStyle18black,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
                       ),
                     ],
                   ),
                 ],
-              ),
-              Expanded(
-                child: Text(
-                  manager.user!.email!,
-                  style: AppStyles.textStyle18black,
-                ),
               ),
               PopupMenuButton(
                 color: Colors.white,

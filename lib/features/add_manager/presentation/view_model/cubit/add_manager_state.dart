@@ -15,3 +15,17 @@ final class FetchManagerFailure extends AddManagerState {
   final String errMessage;
   FetchManagerFailure({required this.errMessage});
 }
+
+final class DeleteManagerFailure extends AddManagerState {
+  final String errMessage;
+  DeleteManagerFailure({required this.errMessage});
+}
+
+final class EditManagerFailure extends AddManagerState {
+  final String errMessage;
+  EditManagerFailure({required this.errMessage});
+}
+final class SearchManagerFailure extends AddManagerState {
+  final String errMessage;
+  SearchManagerFailure({required this.errMessage});
+}

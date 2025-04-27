@@ -28,14 +28,17 @@ class EditProfileView extends StatefulWidget {
 }
 
 class _EditProfileViewState extends State<EditProfileView> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+  late TextEditingController nameController;
+  late TextEditingController emailController;
+  late TextEditingController phoneController;
   final formKey = GlobalKey<FormState>();
   File? avatar;
   @override
   void initState() {
     super.initState();
+    nameController = TextEditingController(text: widget.user.data!.name!);
+    emailController = TextEditingController(text: widget.user.data!.email!);
+    phoneController = TextEditingController(text: widget.user.data!.phone!);
     nameController.addListener(() {
       setState(() {});
     });
@@ -55,19 +58,19 @@ class _EditProfileViewState extends State<EditProfileView> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: BlocConsumer<UserDataCubit, UserDataState>(
           listener: (context, state) async {
-            if (state is UserDataLoading) {
+            if (state is UpdateUserDataLoading) {
               SmartDialog.showLoading();
-            } else if (state is UserDataSuccess) {
+            } else if (state is UpdateUserDataSuccess) {
               final token = await getToken();
               context.read<UserDataCubit>().fetchUserData(token!);
               context.go('/admin_home');
               CustomToast.show(
                 message: "Profile updated successfully",
-                alignment: Alignment.topCenter,
+                alignment: Alignment.bottomCenter,
                 backgroundColor: AppColors.toastColor,
               );
               SmartDialog.dismiss();
-            } else if (state is UserDataFailure) {
+            } else if (state is UpdateUserDataFailure) {
               SmartDialog.dismiss();
               CustomToast.show(
                 message: state.errMessage,
@@ -111,7 +114,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
-                    hintText:  widget.user.data!.email!,
+                    hintText: widget.user.data!.email!,
                     obscureText: false,
                     prefixIcon: const Icon(Icons.email),
                     controller: emailController,
@@ -127,7 +130,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
-                    hintText:  widget.user.data!.phone!,
+                    hintText: widget.user.data!.phone!,
                     obscureText: false,
                     prefixIcon: const Icon(Icons.phone),
                     controller: phoneController,

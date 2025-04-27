@@ -32,20 +32,19 @@ class DashboardViewBody extends StatelessWidget {
               final openPercentage = totalTickets > 0
                   ? ((openTickets / totalTickets) * 100).round()
                   : 0;
-              final userCount = 6; // From your screenshot
-              final userPercentage = 100; // From your screenshot
+              const userCount = 6; // From your screenshot
+              const userPercentage = 100; // From your screenshot
               return Column(
                 children: [
                   LayoutBuilder(
                     builder: (context, constraints) {
-                      final crossAxisCount = constraints.maxWidth ~/ 200;
                       return GridView.count(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        crossAxisCount: crossAxisCount < 2 ? 2 : crossAxisCount,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        childAspectRatio: 0.9,
+                        crossAxisCount: constraints.maxWidth < 600 ? 2 : 4,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
+                        childAspectRatio: 0.85,
                         children: [
                           CustomCard(
                             title: "All Tickets",

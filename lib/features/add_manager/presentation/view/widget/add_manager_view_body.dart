@@ -14,59 +14,66 @@ class AddManagerViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController searchController = TextEditingController();
-    final cubit = context.read<AddManagerCubit>();
     return CustomScaffold(
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: ListView(
-          children: [
-            CustomSearch(
-              controller: searchController,
-              hintText: "search",
-              prefixIcon: const Icon(Icons.search, color: Colors.grey),
-              onChange: (value) {
-                if (value.isEmpty) {
-                  cubit.fetchManager();
-                } else {
-                  cubit.searchManager(value);
-                }
-              },
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: BlocBuilder<AddManagerCubit, AddManagerState>(
+          builder: (context, state) {
+            int managerCount = 0;
+            if (state is FetchManagerSuccess) {
+              managerCount = state.managers.length;
+            }
+            return ListView(
               children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 14),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(13),
-                  ),
-                  child: Text(
-                    "10",
-                    style: AppStyles.textStyle18bold,
-                  ),
-                ),
-                AddButton(
-                  title: "Create New",
-                  onTap: () {
-                    context.push("/add_new_manager");
+                CustomSearch(
+                  controller: searchController,
+                  hintText: "search",
+                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                  onChange: (value) {
+                    if (value.isEmpty) {
+                      context.read<AddManagerCubit>().fetchManager();
+                    } else {
+                      context.read<AddManagerCubit>().searchManager(value);
+                    }
                   },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 14),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(13),
+                      ),
+                      child: Text(
+                        "$managerCount",
+                        style: AppStyles.textStyle18bold,
+                      ),
+                    ),
+                    AddButton(
+                      title: "Create New",
+                      onTap: () {
+                        context.push("/add_new_manager");
+                      },
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const AllManageListView(),
+                const SizedBox(
+                  height: 40,
                 )
               ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const AllManageListView(),
-            const SizedBox(
-              height: 40,
-            )
-          ],
+            );
+          },
         ),
       ),
     );
