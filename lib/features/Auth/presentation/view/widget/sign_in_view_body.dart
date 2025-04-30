@@ -134,24 +134,6 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: passwordController,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            focusColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                            onTap: () {
-                              context.push('/forget_pass');
-                            },
-                            child: Text(
-                              'forget password!',
-                              style: AppStyles.textStyle18blue,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 15.h),
                       CustomButton(
                         title: "Sign In",
                         color: emailController.text.isEmpty
