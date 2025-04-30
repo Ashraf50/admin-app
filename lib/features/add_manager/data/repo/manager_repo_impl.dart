@@ -84,7 +84,7 @@ class ManagerRepoImpl implements ManagerRepo {
         }
       };
       await apiHelper.put(
-        '${AppStrings.baseUrl}/api/admin/managers$managerId',
+        '${AppStrings.baseUrl}/api/admin/managers/$managerId',
         data,
         headers: {
           'Authorization': 'Bearer $token',

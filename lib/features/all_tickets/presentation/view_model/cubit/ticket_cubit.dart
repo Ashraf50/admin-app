@@ -1,5 +1,7 @@
+import 'package:admin_app/core/widget/custom_toast.dart';
 import 'package:admin_app/features/all_tickets/data/model/ticket_model/ticket_model/ticket_model.dart';
 import 'package:admin_app/features/all_tickets/data/repo/ticket_repo.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'ticket_state.dart';
 
@@ -38,7 +40,6 @@ class TicketCubit extends Cubit<TicketState> {
     fetchTickets(loadMore: true);
   }
 
-
   Future<void> fetchSortedTickets(
       {required String from,
       required String to,
@@ -46,9 +47,12 @@ class TicketCubit extends Cubit<TicketState> {
     emit(FetchTicketLoading());
     final result =
         await ticketRepo.sortTicket(from: from, to: to, serviceId: serviceId);
-
     result.fold(
-      (failure) => emit(FetchTicketFailure(errMessage: failure.errMessage)),
+      (failure) {
+        CustomToast.show(
+            message: failure.errMessage, backgroundColor: Colors.red);
+        emit(FetchTicketSuccess(tickets: List.from(allTickets)));
+      },
       (tickets) => emit(FetchTicketSuccess(tickets: tickets)),
     );
   }

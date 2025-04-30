@@ -1,5 +1,7 @@
+import 'package:admin_app/core/widget/custom_toast.dart';
 import 'package:admin_app/features/add_manager/data/model/manager_model/manager_model.dart';
 import 'package:admin_app/features/add_manager/data/repo/manager_repo.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'add_manager_state.dart';
 
@@ -41,7 +43,9 @@ class AddManagerCubit extends Cubit<AddManagerState> {
     var result = await managerRepo.deleteManager(id);
     result.fold(
       (failure) {
-        emit(DeleteManagerFailure(errMessage: failure.errMessage));
+        CustomToast.show(
+            message: failure.errMessage, backgroundColor: Colors.red);
+        fetchManager();
       },
       (_) async {
         await fetchManager();
@@ -67,7 +71,9 @@ class AddManagerCubit extends Cubit<AddManagerState> {
     );
     result.fold(
       (failure) {
-        emit(EditManagerFailure(errMessage: failure.errMessage));
+        CustomToast.show(
+            message: failure.errMessage, backgroundColor: Colors.red);
+        fetchManager();
       },
       (_) async {
         await fetchManager();

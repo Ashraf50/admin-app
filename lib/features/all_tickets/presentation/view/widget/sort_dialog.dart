@@ -19,7 +19,8 @@ class SortDialogState extends State<SortDialog> {
   int? selectedServiceId;
   RecordModel? selectedRecord;
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(
+      BuildContext context, TextEditingController controller) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -28,8 +29,7 @@ class SortDialogState extends State<SortDialog> {
     );
     if (picked != null) {
       setState(() {
-        fromController.text = DateFormat('yyyy-MM-dd').format(picked);
-        toController.text = DateFormat('yyyy-MM-dd').format(picked);
+        controller.text = DateFormat('yyyy-MM-dd').format(picked);
       });
     }
   }
@@ -42,7 +42,7 @@ class SortDialogState extends State<SortDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           GestureDetector(
-            onTap: () => _selectDate(context),
+            onTap: () => _selectDate(context, fromController),
             child: AbsorbPointer(
               child: TextField(
                 controller: fromController,
@@ -57,7 +57,7 @@ class SortDialogState extends State<SortDialog> {
           ),
           const SizedBox(height: 12),
           GestureDetector(
-            onTap: () => _selectDate(context),
+            onTap: () => _selectDate(context, toController),
             child: AbsorbPointer(
               child: TextField(
                 controller: toController,

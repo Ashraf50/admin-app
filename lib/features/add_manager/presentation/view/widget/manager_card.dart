@@ -93,11 +93,12 @@ class ManagerCard extends StatelessWidget {
   }
 
   void _showEditDialog(BuildContext context) {
-    final nameController = TextEditingController();
-    final emailController = TextEditingController();
+    final nameController = TextEditingController(text: manager.user!.name!);
+    final emailController = TextEditingController(text: manager.user!.email!);
     final passwordController = TextEditingController();
     final confirmPassController = TextEditingController();
-    final idController = TextEditingController();
+    final idController =
+        TextEditingController(text: manager.service!.id.toString());
     SmartDialog.show(
       builder: (_) => AlertDialog(
         title: const Text('Edit Manager'),
