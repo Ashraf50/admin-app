@@ -4,6 +4,8 @@ import 'package:admin_app/features/Auth/presentation/view/reset_password_view.da
 import 'package:admin_app/features/Auth/presentation/view/sign_in_view.dart';
 import 'package:admin_app/features/add_manager/presentation/view/widget/add_new_manager.dart';
 import 'package:admin_app/features/all_tickets/data/model/ticket_model/ticket_model/ticket_model.dart';
+import 'package:admin_app/features/dashboard/data/model/statistics_model/recent_ticket.dart';
+import 'package:admin_app/features/dashboard/presentation/view/widget/ticket_details.dart';
 import 'package:admin_app/features/home/data/model/user_model/user_model.dart';
 import 'package:admin_app/features/home/presentation/view/admin_home_view.dart';
 import 'package:admin_app/features/home/presentation/view/widget/edit_profile_view.dart';
@@ -40,6 +42,12 @@ class AppRouter {
           builder: (context, state) {
             var ticket = state.extra as TicketModel;
             return TicketsDetailsView(ticket: ticket);
+          }),
+      GoRoute(
+          path: '/dashboard_ticket_details',
+          builder: (context, state) {
+            var ticket = state.extra as RecentTicket;
+            return DashboardTicketDetails(ticket: ticket);
           }),
       GoRoute(
           path: '/photo_view',

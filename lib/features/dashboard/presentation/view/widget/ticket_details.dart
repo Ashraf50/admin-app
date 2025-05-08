@@ -1,14 +1,14 @@
 import 'package:admin_app/core/constant/app_styles.dart';
 import 'package:admin_app/core/widget/custom_app_bar.dart';
 import 'package:admin_app/core/widget/custom_scaffold.dart';
-import 'package:admin_app/features/all_tickets/data/model/ticket_model/ticket_model/ticket_model.dart';
 import 'package:admin_app/features/all_tickets/presentation/view/widget/status_button.dart';
+import 'package:admin_app/features/dashboard/data/model/statistics_model/recent_ticket.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/constant/func/data_format.dart';
 
-class TicketsDetailsView extends StatelessWidget {
-  final TicketModel ticket;
-  const TicketsDetailsView({super.key, required this.ticket});
+class DashboardTicketDetails extends StatelessWidget {
+  final RecentTicket ticket;
+  const DashboardTicketDetails({super.key, required this.ticket});
 
   @override
   Widget build(BuildContext context) {

@@ -1,13 +1,16 @@
 import 'package:admin_app/core/constant/app_styles.dart';
-import 'package:admin_app/features/all_tickets/data/model/ticket_model/ticket_model/ticket_model.dart';
 import 'package:admin_app/features/all_tickets/presentation/view/widget/status_button.dart';
 import 'package:flutter/material.dart';
 
 class TicketCard extends StatelessWidget {
-  final TicketModel ticket;
+  final String serviceName;
+  final String userName;
+  final int status;
   const TicketCard({
     super.key,
-    required this.ticket,
+    required this.serviceName,
+    required this.userName,
+    required this.status,
   });
 
   @override
@@ -25,7 +28,7 @@ class TicketCard extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Text(
-                      ticket.service!.name!,
+                      serviceName,
                       style: AppStyles.textStyle18black,
                       softWrap: true,
                     ),
@@ -37,7 +40,7 @@ class TicketCard extends StatelessWidget {
                         color: Colors.grey,
                       ),
                       Text(
-                        ticket.user!.name!,
+                        userName,
                         style: AppStyles.textStyle16,
                       ),
                     ],
@@ -45,7 +48,7 @@ class TicketCard extends StatelessWidget {
                 ],
               ),
               StatusButton(
-                status: ticket.status!,
+                status: status,
               ),
             ],
           ),

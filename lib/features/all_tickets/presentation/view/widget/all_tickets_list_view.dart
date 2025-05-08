@@ -55,7 +55,7 @@ class _AllTicketsListViewState extends State<AllTicketsListView> {
           color: Colors.white,
           border: Border.all(color: Colors.grey),
           borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(13), topRight: Radius.circular(13)),
+              topLeft: Radius.circular(13), topRight: Radius.circular(13)),
         ),
         child: BlocBuilder<TicketCubit, TicketState>(
           builder: (context, state) {
@@ -73,7 +73,9 @@ class _AllTicketsListViewState extends State<AllTicketsListView> {
                       );
                     },
                     child: TicketCard(
-                      ticket: tickets,
+                      serviceName: tickets.service?.name ?? '',
+                      userName: tickets.user?.name ?? '',
+                      status: tickets.status!,
                     ),
                   );
                 },

@@ -8,13 +8,14 @@ import 'package:admin_app/features/add_record/data/repo/record_repo_impl.dart';
 import 'package:admin_app/features/add_record/presentation/view_model/cubit/all_record_cubit.dart';
 import 'package:admin_app/features/all_tickets/data/repo/ticket_repo_impl.dart';
 import 'package:admin_app/features/all_tickets/presentation/view_model/cubit/ticket_cubit.dart';
+import 'package:admin_app/features/dashboard/data/repo/dashboard_repo_impl.dart';
+import 'package:admin_app/features/dashboard/presentation/view_model/cubit/statistics_cubit.dart';
 import 'package:admin_app/features/home/data/repo/user_repo_impl.dart';
 import 'package:admin_app/features/home/presentation/view_model/cubit/user_data_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-
 import 'features/add_manager/presentation/view_model/cubit/create_manager_cubit.dart';
 
 class MyApp extends StatelessWidget {
@@ -49,6 +50,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               TicketCubit(TicketRepoImpl(ApiHelper()))..fetchTickets(),
+        ),
+        BlocProvider(
+          create: (context) => StatisticsCubit(DashboardRepoImpl(ApiHelper()))
+            ..fetchStatistics(),
         ),
         BlocProvider(
           create: (context) => CreateManagerCubit(ManagerRepoImpl(ApiHelper())),
