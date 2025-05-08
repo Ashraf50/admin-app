@@ -1,5 +1,6 @@
 import 'package:admin_app/core/constant/app_colors.dart';
 import 'package:admin_app/core/constant/app_images.dart';
+import 'package:admin_app/core/constant/app_styles.dart';
 import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/features/dashboard/presentation/view/widget/graph.dart';
 import 'package:admin_app/features/dashboard/presentation/view_model/cubit/statistics_cubit.dart';
@@ -114,29 +115,38 @@ class DashboardViewBody extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount:
-                              state.statistics.data!.recentTickets!.length,
-                          itemBuilder: (context, index) {
-                            final tickets =
-                                state.statistics.data!.recentTickets![index];
-                            return InkWell(
-                              onTap: () {
-                                context.push(
-                                  "/dashboard_ticket_details",
-                                  extra: tickets,
-                                );
-                              },
-                              child: TicketCard(
-                                serviceName: tickets.service?.name ?? '',
-                                userName: tickets.user?.name ?? '',
-                                status: tickets.status!,
-                              ),
-                            );
-                          },
-                        ),
+                        if (state.statistics.data!.recentTickets == null ||
+                            state.statistics.data!.recentTickets!.isEmpty)
+                          Center(
+                            child: Text(
+                              'No tickets',
+                              style: AppStyles.textStyle16,
+                            ),
+                          )
+                        else
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount:
+                                state.statistics.data!.recentTickets!.length,
+                            itemBuilder: (context, index) {
+                              final tickets =
+                                  state.statistics.data!.recentTickets![index];
+                              return InkWell(
+                                onTap: () {
+                                  context.push(
+                                    "/dashboard_ticket_details",
+                                    extra: tickets,
+                                  );
+                                },
+                                child: TicketCard(
+                                  serviceName: tickets.service?.name ?? '',
+                                  userName: tickets.user?.name ?? '',
+                                  status: tickets.status!,
+                                ),
+                              );
+                            },
+                          ),
                       ],
                     ),
                   )
