@@ -37,20 +37,28 @@ class _EditProfileViewState extends State<EditProfileView> {
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController(
-        text: widget.user.data!.name ?? S.of(context).null_value);
-    emailController = TextEditingController(
-        text: widget.user.data!.email ?? S.of(context).null_value);
-    phoneController = TextEditingController(
-        text: widget.user.data!.phone ?? S.of(context).null_value);
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    phoneController = TextEditingController();
+
     nameController.addListener(() {
       setState(() {});
     });
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    nameController.text = widget.user.data!.name ?? S.of(context).null_value;
+    emailController.text = widget.user.data!.email ?? S.of(context).null_value;
+    phoneController.text = widget.user.data!.phone ?? S.of(context).null_value;
+  }
+
+  @override
   void dispose() {
     nameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
     super.dispose();
   }
 
@@ -101,7 +109,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
-                    hintText: widget.user.data!.name!,
+                    hintText:
+                        widget.user.data!.name ?? S.of(context).null_value,
                     controller: nameController,
                     prefixIcon: const Icon(Icons.person),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -118,7 +127,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
-                    hintText: widget.user.data!.email!,
+                    hintText:
+                        widget.user.data!.email ?? S.of(context).null_value,
                     obscureText: false,
                     prefixIcon: const Icon(Icons.email),
                     controller: emailController,
@@ -134,7 +144,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
-                    hintText: widget.user.data!.phone!,
+                    hintText:
+                        widget.user.data!.phone ?? S.of(context).null_value,
                     obscureText: false,
                     prefixIcon: const Icon(Icons.phone),
                     controller: phoneController,

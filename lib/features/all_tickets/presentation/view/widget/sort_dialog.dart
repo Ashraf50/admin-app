@@ -30,9 +30,16 @@ class SortDialogState extends State<SortDialog> {
     );
     if (picked != null) {
       setState(() {
-        controller.text = DateFormat('yyyy-MM-dd','en').format(picked);
+        controller.text = DateFormat('yyyy-MM-dd', 'en').format(picked);
       });
     }
+  }
+
+  @override
+  void dispose() {
+    fromController.dispose();
+    toController.dispose();
+    super.dispose();
   }
 
   @override

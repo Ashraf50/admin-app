@@ -30,7 +30,8 @@ class DashboardViewBody extends StatelessWidget {
             } else if (state is StatisticsLoaded) {
               final totalTickets = state.statistics.data!.allTickets!;
               final closedTickets = state.statistics.data!.closedTickets!;
-              final inProgressTickets = state.statistics.data!.closedTickets!;
+              final inProgressTickets =
+                  state.statistics.data!.inProcessingTickets!;
               final openTickets = state.statistics.data!.openedTickets!;
               final closedPercentage = totalTickets > 0
                   ? ((closedTickets / totalTickets) * 100).round()
