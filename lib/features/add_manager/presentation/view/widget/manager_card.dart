@@ -2,6 +2,7 @@ import 'package:admin_app/core/constant/app_styles.dart';
 import 'package:admin_app/core/widget/custom_text_field.dart';
 import 'package:admin_app/features/add_manager/data/model/manager_model/manager_model.dart';
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -23,7 +24,7 @@ class ManagerCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    manager.service?.name ?? "null",
+                    manager.service?.name ?? S.of(context).null_value,
                     style: AppStyles.textStyle16,
                   ),
                   Row(
@@ -67,13 +68,15 @@ class ManagerCard extends StatelessWidget {
                 color: Colors.white,
                 icon: const Icon(Icons.more_vert),
                 itemBuilder: (BuildContext context) => [
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'edit',
-                    child: Text('Edit'),
+                    child: Text(S.of(context).edit),
                   ),
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'delete',
-                    child: Text('Delete'),
+                    child: Text(
+                      S.of(context).delete,
+                    ),
                   ),
                 ],
                 onSelected: (value) {
@@ -93,36 +96,40 @@ class ManagerCard extends StatelessWidget {
   }
 
   void _showEditDialog(BuildContext context) {
-    final nameController = TextEditingController(text: manager.user!.name!);
-    final emailController = TextEditingController(text: manager.user!.email!);
+    final nameController = TextEditingController(
+        text: manager.user!.name ?? S.of(context).null_value);
+    final emailController = TextEditingController(
+        text: manager.user!.email ?? S.of(context).null_value);
     final passwordController = TextEditingController();
     final confirmPassController = TextEditingController();
-    final idController =
-        TextEditingController(text: manager.service!.id.toString());
+    final idController = TextEditingController(
+        text: manager.service?.id.toString() ?? S.of(context).null_value);
     SmartDialog.show(
       builder: (_) => AlertDialog(
-        title: const Text('Edit Manager'),
+        title: Text(
+          S.of(context).edit_manager,
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomTextfield(
-              hintText: "Record id",
+              hintText: S.of(context).service_id,
               controller: idController,
             ),
             CustomTextfield(
-              hintText: "name",
+              hintText: S.of(context).name,
               controller: nameController,
             ),
             CustomTextfield(
-              hintText: "email",
+              hintText: S.of(context).Email,
               controller: emailController,
             ),
             CustomTextfield(
-              hintText: "password",
+              hintText: S.of(context).password,
               controller: passwordController,
             ),
             CustomTextfield(
-              hintText: "confirm password",
+              hintText: S.of(context).confirmPassword,
               controller: confirmPassController,
             ),
           ],
@@ -130,7 +137,7 @@ class ManagerCard extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => SmartDialog.dismiss(),
-            child: const Text('Cancel'),
+            child: Text(S.of(context).cancel),
           ),
           TextButton(
             onPressed: () {
@@ -144,7 +151,7 @@ class ManagerCard extends StatelessWidget {
                   );
               SmartDialog.dismiss();
             },
-            child: const Text('Save'),
+            child: Text(S.of(context).save),
           ),
         ],
       ),
@@ -154,19 +161,24 @@ class ManagerCard extends StatelessWidget {
   void _showDeleteDialog(BuildContext context) {
     SmartDialog.show(
       builder: (_) => AlertDialog(
-        title: const Text('Confirm Delete'),
-        content: const Text('Are you sure you want to delete this manager?'),
+        title: Text(
+          S.of(context).confirm_delete,
+        ),
+        content: Text(S.of(context).sure_delete_manager),
         actions: [
           TextButton(
             onPressed: () => SmartDialog.dismiss(),
-            child: const Text('Cancel'),
+            child: Text(
+              S.of(context).cancel,
+            ),
           ),
           TextButton(
             onPressed: () {
               context.read<AddManagerCubit>().deleteManager(manager.id!);
               SmartDialog.dismiss();
             },
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+            child: Text(S.of(context).delete,
+                style: const TextStyle(color: Colors.red)),
           ),
         ],
       ),

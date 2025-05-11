@@ -1,5 +1,6 @@
 import 'package:admin_app/core/constant/app_colors.dart';
 import 'package:admin_app/core/constant/app_styles.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -29,17 +30,17 @@ class ChangePhotoButton extends StatelessWidget {
                 child: Column(
                   children: [
                     TextButton(
-                      title: "Choose Photo",
+                      title: S.of(context).choose_photo,
                       onTap: choosePhoto,
                     ),
                     const CustomDivider(),
                     TextButton(
-                      title: "Take Photo",
+                      title: S.of(context).take_photo,
                       onTap: takePhoto,
                     ),
                     const CustomDivider(),
                     TextButton(
-                      title: "Cancel",
+                      title: S.of(context).cancel,
                       onTap: () {
                         context.pop();
                       },

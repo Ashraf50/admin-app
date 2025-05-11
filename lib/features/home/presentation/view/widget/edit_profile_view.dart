@@ -9,6 +9,7 @@ import 'package:admin_app/core/widget/custom_text_field.dart';
 import 'package:admin_app/core/widget/custom_toast.dart';
 import 'package:admin_app/features/home/presentation/view/widget/profile_photo.dart';
 import 'package:admin_app/features/home/presentation/view_model/cubit/user_data_cubit.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,9 +37,12 @@ class _EditProfileViewState extends State<EditProfileView> {
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController(text: widget.user.data!.name!);
-    emailController = TextEditingController(text: widget.user.data!.email!);
-    phoneController = TextEditingController(text: widget.user.data!.phone!);
+    nameController = TextEditingController(
+        text: widget.user.data!.name ?? S.of(context).null_value);
+    emailController = TextEditingController(
+        text: widget.user.data!.email ?? S.of(context).null_value);
+    phoneController = TextEditingController(
+        text: widget.user.data!.phone ?? S.of(context).null_value);
     nameController.addListener(() {
       setState(() {});
     });
@@ -53,7 +57,7 @@ class _EditProfileViewState extends State<EditProfileView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appBar: const CustomAppBar(title: "Edit Profile"),
+      appBar: CustomAppBar(title: S.of(context).editProfile),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: BlocConsumer<UserDataCubit, UserDataState>(
@@ -65,7 +69,7 @@ class _EditProfileViewState extends State<EditProfileView> {
               context.read<UserDataCubit>().fetchUserData(token!);
               context.go('/admin_home');
               CustomToast.show(
-                message: "Profile updated successfully",
+                message: S.of(context).Profile_updated,
                 alignment: Alignment.bottomCenter,
                 backgroundColor: AppColors.toastColor,
               );
@@ -93,7 +97,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                     },
                   ),
                   Text(
-                    "Name",
+                    S.of(context).name,
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
@@ -103,14 +107,14 @@ class _EditProfileViewState extends State<EditProfileView> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == '') {
-                        return "empty field";
+                        return S.of(context).empty_field;
                       } else {
                         return null;
                       }
                     },
                   ),
                   Text(
-                    "Email",
+                    S.of(context).Email,
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
@@ -121,12 +125,12 @@ class _EditProfileViewState extends State<EditProfileView> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       return value != null && !EmailValidator.validate(value)
-                          ? " Enter a valid email"
+                          ? S.of(context).enter_valid_email
                           : null;
                     },
                   ),
                   Text(
-                    "Phone",
+                    S.of(context).phone,
                     style: AppStyles.textStyle18bold,
                   ),
                   CustomTextfield(
@@ -137,14 +141,14 @@ class _EditProfileViewState extends State<EditProfileView> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value!.length != 11) {
-                        return "Enter a valid phone num";
+                        return S.of(context).enter_valid_phone;
                       } else {
                         return null;
                       }
                     },
                   ),
                   CustomButton(
-                    title: "Submit",
+                    title: S.of(context).submit,
                     color: nameController.text.isEmpty
                         ? AppColors.inActiveBlue
                         : AppColors.activeBlue,
@@ -152,7 +156,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                       if (formKey.currentState!.validate()) {
                         if (avatar == null) {
                           CustomToast.show(
-                            message: "Please select a profile picture",
+                            message:
+                                S.of(context).Please_select_profile_picture,
                             backgroundColor: Colors.red,
                           );
                           return;
@@ -165,7 +170,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                             );
                       } else {
                         CustomToast.show(
-                          message: "Check your data",
+                          message: S.of(context).check_data,
                         );
                       }
                     },

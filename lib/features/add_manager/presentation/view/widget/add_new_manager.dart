@@ -6,6 +6,7 @@ import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/core/widget/custom_toast.dart';
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/create_manager_cubit.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,14 +67,14 @@ class _AddNewManagerState extends State<AddNewManager> {
           context.pop(context);
           context.read<AddManagerCubit>().fetchManager();
           CustomToast.show(
-            message: "Manager Created Successfully",
+            message: S.of(context).manager_created_successfully,
             alignment: Alignment.topCenter,
             backgroundColor: AppColors.toastColor,
           );
         }
       },
       child: CustomScaffold(
-        appBar: const CustomAppBar(title: "Create New"),
+        appBar: CustomAppBar(title: S.of(context).createNew),
         body: Form(
           key: formKey,
           child: Padding(
@@ -84,29 +85,29 @@ class _AddNewManagerState extends State<AddNewManager> {
                   height: 20,
                 ),
                 Text(
-                  "Name",
+                  S.of(context).name,
                   style: AppStyles.textStyle18bold,
                 ),
                 CustomTextfield(
-                  hintText: "Name",
+                  hintText: S.of(context).name,
                   controller: nameController,
                 ),
                 Text(
-                  "Email",
+                  S.of(context).Email,
                   style: AppStyles.textStyle18bold,
                 ),
                 CustomTextfield(
-                  hintText: "Email",
+                  hintText: S.of(context).email,
                   controller: emailController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     return value != null && !EmailValidator.validate(value)
-                        ? " Enter a valid email"
+                        ? S.of(context).enter_valid_email
                         : null;
                   },
                 ),
                 Text(
-                  "Department",
+                  S.of(context).service_name,
                   style: AppStyles.textStyle18bold,
                 ),
                 BlocBuilder<AllRecordCubit, AllRecordState>(
@@ -135,11 +136,11 @@ class _AddNewManagerState extends State<AddNewManager> {
                   height: 10,
                 ),
                 Text(
-                  "password",
+                  S.of(context).Password,
                   style: AppStyles.textStyle18bold,
                 ),
                 CustomTextfield(
-                  hintText: "password",
+                  hintText: S.of(context).password,
                   obscureText: visibility,
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -161,18 +162,18 @@ class _AddNewManagerState extends State<AddNewManager> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     if (value!.length < 8) {
-                      return "your password is too short";
+                      return S.of(context).pass_short;
                     } else {
                       return null;
                     }
                   },
                 ),
                 Text(
-                  "confirm password",
+                  S.of(context).confirmPassword,
                   style: AppStyles.textStyle18bold,
                 ),
                 CustomTextfield(
-                  hintText: "Confirm password",
+                  hintText: S.of(context).confirmPassword,
                   obscureText: visibility,
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -193,7 +194,7 @@ class _AddNewManagerState extends State<AddNewManager> {
                   controller: confirmPassController,
                 ),
                 CustomButton(
-                  title: "Submit",
+                  title: S.of(context).submit,
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
                       final cubit = context.read<CreateManagerCubit>();
@@ -205,7 +206,9 @@ class _AddNewManagerState extends State<AddNewManager> {
                         serviceId: selectedServiceId.toString(),
                       );
                     } else {
-                      CustomToast.show(message: "Check email or password");
+                      CustomToast.show(
+                        message: S.of(context).check_email,
+                      );
                     }
                   },
                   color: nameController.text.isEmpty

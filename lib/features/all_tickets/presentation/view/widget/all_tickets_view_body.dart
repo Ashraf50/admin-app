@@ -3,6 +3,7 @@ import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/features/all_tickets/presentation/view/widget/all_tickets_list_view.dart';
 import 'package:admin_app/features/all_tickets/presentation/view/widget/sort_dialog.dart';
 import 'package:admin_app/features/all_tickets/presentation/view_model/cubit/ticket_cubit.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'add_button.dart';
@@ -41,7 +42,7 @@ class AllTicketsViewBody extends StatelessWidget {
                       ),
                     ),
                     AddButton(
-                      title: "Filter Tickets",
+                      title: S.of(context).filterTickets,
                       icon: const Icon(
                         Icons.sort,
                         color: Colors.white,

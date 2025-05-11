@@ -1,6 +1,4 @@
 import 'package:admin_app/core/widget/photo_view.dart';
-import 'package:admin_app/features/Auth/presentation/view/forget_password_view.dart';
-import 'package:admin_app/features/Auth/presentation/view/reset_password_view.dart';
 import 'package:admin_app/features/Auth/presentation/view/sign_in_view.dart';
 import 'package:admin_app/features/add_manager/presentation/view/widget/add_new_manager.dart';
 import 'package:admin_app/features/all_tickets/data/model/ticket_model/ticket_model/ticket_model.dart';
@@ -22,14 +20,6 @@ class AppRouter {
       GoRoute(
         path: '/sign_in',
         builder: (context, state) => const SignInView(),
-      ),
-      GoRoute(
-        path: '/forget_pass',
-        builder: (context, state) => const ForgetPasswordView(),
-      ),
-      GoRoute(
-        path: '/reset_pass',
-        builder: (context, state) => const ResetPasswordView(),
       ),
       GoRoute(
           path: '/admin_home',

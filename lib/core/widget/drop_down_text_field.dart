@@ -1,4 +1,5 @@
 import 'package:admin_app/core/constant/app_colors.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import '../../features/add_record/data/model/record_model.dart';
 
@@ -25,7 +26,9 @@ class DropdownTextField extends StatelessWidget {
           isExpanded: true,
           value: selectedRecord,
           dropdownColor: AppColors.white,
-          hint: const Text('Select Service'),
+          hint: Text(
+            S.of(context).selectService,
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           items: records.map((record) {
             return DropdownMenuItem<RecordModel>(

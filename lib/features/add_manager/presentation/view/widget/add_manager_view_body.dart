@@ -2,6 +2,7 @@ import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/features/add_manager/presentation/view/widget/all_manager_list_view.dart';
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
 import 'package:admin_app/features/all_tickets/presentation/view/widget/add_button.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -28,7 +29,7 @@ class AddManagerViewBody extends StatelessWidget {
               children: [
                 CustomSearch(
                   controller: searchController,
-                  hintText: "search",
+                  hintText: S.of(context).search,
                   prefixIcon: const Icon(Icons.search, color: Colors.grey),
                   onChange: (value) {
                     if (value.isEmpty) {
@@ -57,7 +58,7 @@ class AddManagerViewBody extends StatelessWidget {
                       ),
                     ),
                     AddButton(
-                      title: "Create New",
+                      title: S.of(context).createNew,
                       onTap: () {
                         context.push("/add_new_manager");
                       },

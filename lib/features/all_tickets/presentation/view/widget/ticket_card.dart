@@ -3,12 +3,12 @@ import 'package:admin_app/features/all_tickets/presentation/view/widget/status_b
 import 'package:flutter/material.dart';
 
 class TicketCard extends StatelessWidget {
-  final String serviceName;
+  final String ticketName;
   final String userName;
   final int status;
   const TicketCard({
     super.key,
-    required this.serviceName,
+    required this.ticketName,
     required this.userName,
     required this.status,
   });
@@ -28,7 +28,7 @@ class TicketCard extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Text(
-                      serviceName,
+                      ticketName,
                       style: AppStyles.textStyle18black,
                       softWrap: true,
                     ),

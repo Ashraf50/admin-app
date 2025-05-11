@@ -4,6 +4,7 @@ import 'package:admin_app/core/constant/app_styles.dart';
 import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/features/dashboard/presentation/view/widget/graph.dart';
 import 'package:admin_app/features/dashboard/presentation/view_model/cubit/statistics_cubit.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -54,35 +55,35 @@ class DashboardViewBody extends StatelessWidget {
                         childAspectRatio: 0.85,
                         children: [
                           CustomCard(
-                            title: "All Tickets",
+                            title: S.of(context).allTickets,
                             value: totalTickets.toString(),
                             percentage: "100%",
                             iconAsset: Assets.ticket,
                             circleColor: AppColors.darkBlue,
                           ),
                           CustomCard(
-                            title: "Closed Tickets",
+                            title: S.of(context).closedTickets,
                             value: closedTickets.toString(),
                             percentage: "$closedPercentage%",
                             iconAsset: Assets.ticket,
                             circleColor: AppColors.darkBlue,
                           ),
                           CustomCard(
-                            title: "InProgress Tickets",
+                            title: S.of(context).inProgressTickets,
                             value: inProgressTickets.toString(),
                             percentage: "$inProgressPercentage%",
                             iconAsset: Assets.ticket,
                             circleColor: AppColors.darkBlue,
                           ),
                           CustomCard(
-                            title: "Open Tickets",
+                            title: S.of(context).openTickets,
                             value: openTickets.toString(),
                             percentage: "$openPercentage%",
                             iconAsset: Assets.ticket,
                             circleColor: AppColors.darkBlue,
                           ),
                           CustomCard(
-                            title: "Managers",
+                            title: S.of(context).manager,
                             value: managerCount.toString(),
                             percentage: "100%",
                             iconAsset: Assets.users,
@@ -105,9 +106,9 @@ class DashboardViewBody extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Recent Tickets",
-                          style: TextStyle(
+                        Text(
+                          S.of(context).recentTickets,
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -119,7 +120,7 @@ class DashboardViewBody extends StatelessWidget {
                             state.statistics.data!.recentTickets!.isEmpty)
                           Center(
                             child: Text(
-                              'No tickets',
+                              S.of(context).no_tickets,
                               style: AppStyles.textStyle16,
                             ),
                           )
@@ -140,7 +141,7 @@ class DashboardViewBody extends StatelessWidget {
                                   );
                                 },
                                 child: TicketCard(
-                                  serviceName: tickets.service?.name ?? '',
+                                  ticketName: tickets.title ?? '',
                                   userName: tickets.user?.name ?? '',
                                   status: tickets.status!,
                                 ),

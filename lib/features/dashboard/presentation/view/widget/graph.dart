@@ -1,3 +1,4 @@
+import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../../data/model/statistics_model/annual_tickets_average.dart';
@@ -10,12 +11,12 @@ class ChartsDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildAnnualTicketsChart(),
+        _buildAnnualTicketsChart(context),
       ],
     );
   }
 
-  Widget _buildAnnualTicketsChart() {
+  Widget _buildAnnualTicketsChart(BuildContext context) {
     final List<FlSpot> spots = [];
     final List<String> years = [];
     for (int i = 0; i < annualTickets.length; i++) {
@@ -50,9 +51,9 @@ class ChartsDashboard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text(
-                'Annual tickets average',
-                style: TextStyle(
+              Text(
+                S.of(context).annualTickets,
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),

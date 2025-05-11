@@ -7,6 +7,7 @@ import 'package:admin_app/core/widget/custom_toast.dart';
 import 'package:admin_app/features/Auth/presentation/view/widget/custom_auth_app_bar.dart';
 import 'package:admin_app/features/Auth/presentation/view_model/bloc/auth_bloc.dart';
 import 'package:admin_app/features/home/presentation/view_model/cubit/user_data_cubit.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,16 +70,15 @@ class _SignInViewBodyState extends State<SignInViewBody> {
             key: formKey,
             child: ListView(
               children: [
-                const CustomAuthAppBar(
-                  title: 'Welcome Back!',
-                  subTitle:
-                      'To keep connected with us please\nlogin with your personal Info',
+                CustomAuthAppBar(
+                  title: S.of(context).welcome,
+                  subTitle: S.of(context).welcomeDescription,
                 ),
                 SizedBox(
                   height: 15.h,
                 ),
                 Text(
-                  'Sign In',
+                  S.of(context).signIn,
                   style: AppStyles.textStyle20blackBold,
                   textAlign: TextAlign.center,
                 ),
@@ -91,11 +91,11 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Email",
+                        S.of(context).Email,
                         style: AppStyles.textStyle18black,
                       ),
                       CustomTextfield(
-                        hintText: "Enter your email",
+                        hintText: S.of(context).email,
                         obscureText: false,
                         prefixIcon: const Icon(Icons.email),
                         controller: emailController,
@@ -103,16 +103,16 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                         validator: (value) {
                           return value != null &&
                                   !EmailValidator.validate(value)
-                              ? " Enter a valid email"
+                              ? S.of(context).enter_valid_email
                               : null;
                         },
                       ),
                       Text(
-                        "Password",
+                        S.of(context).Password,
                         style: AppStyles.textStyle18black,
                       ),
                       CustomTextfield(
-                        hintText: "Enter your password",
+                        hintText: S.of(context).password,
                         prefixIcon: const Icon(Icons.lock_sharp),
                         obscureText: visibility,
                         suffixIcon: IconButton(
@@ -135,7 +135,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                         controller: passwordController,
                       ),
                       CustomButton(
-                        title: "Sign In",
+                        title: S.of(context).signIn,
                         color: emailController.text.isEmpty
                             ? AppColors.inActiveBlue
                             : AppColors.activeBlue,
@@ -147,7 +147,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                             ));
                           } else {
                             CustomToast.show(
-                              message: "check the email or password",
+                              message: S.of(context).check_email,
                             );
                           }
                         },

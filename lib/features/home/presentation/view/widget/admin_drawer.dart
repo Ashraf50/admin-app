@@ -6,6 +6,7 @@ import 'package:admin_app/features/home/data/model/drawer_model.dart';
 import 'package:admin_app/features/home/presentation/view/widget/active_and_inactive_item.dart';
 import 'package:admin_app/features/home/presentation/view/widget/admin_drawer_item_list_view.dart';
 import 'package:admin_app/features/home/presentation/view/widget/user_info.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -53,9 +54,9 @@ class AdminDrawer extends StatelessWidget {
                     AuthRepo authRepo = AuthRepoImpl(ApiHelper());
                     authRepo.logout();
                   },
-                  child: const InActiveDrawerItem(
+                  child:  InActiveDrawerItem(
                     drawerItemModel: DrawerItemModel(
-                      title: 'Logout account',
+                      title: S.of(context).logoutAccount,
                       image: Assets.logout,
                     ),
                   ),

@@ -2,6 +2,8 @@ import 'package:admin_app/core/widget/custom_app_bar.dart';
 import 'package:admin_app/features/all_tickets/presentation/view/all_tickets.dart';
 import 'package:admin_app/features/dashboard/presentation/view/dashboard_view.dart';
 import 'package:admin_app/features/home/presentation/view/widget/admin_drawer.dart';
+import 'package:admin_app/features/settings/presentation/view/settings_view.dart';
+import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import '../../../add_manager/presentation/view/add_manager_view.dart';
 import '../../../add_record/presentation/view/add_record.dart';
@@ -24,6 +26,7 @@ class _AdminHomeViewState extends State<AdminHomeView> {
     AllTicketsView(),
     AddManagerView(),
     AddRecordView(),
+    SettingsView(),
   ];
 
   @override
@@ -31,10 +34,11 @@ class _AdminHomeViewState extends State<AdminHomeView> {
     return Scaffold(
       appBar: CustomAppBar(
         title: [
-          'Dashboard',
-          'All Tickets',
-          'Add Manager',
-          'Add Record'
+          S.of(context).dashboard,
+          S.of(context).allTickets,
+          S.of(context).addManager,
+          S.of(context).add_service,
+          S.of(context).setting
         ][widget.selectedIndex],
       ),
       drawer: AdminDrawer(
