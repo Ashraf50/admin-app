@@ -31,6 +31,8 @@ class TicketCard extends StatelessWidget {
                       ticketName,
                       style: AppStyles.textStyle18black,
                       softWrap: true,
+                      maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Row(
