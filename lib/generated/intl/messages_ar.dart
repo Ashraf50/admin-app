@@ -123,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "technicians": MessageLookupByLibrary.simpleMessage("الفنيين"),
         "ticket_details":
             MessageLookupByLibrary.simpleMessage("تفاصيل التذكرة"),
+        "ticket_id": MessageLookupByLibrary.simpleMessage("معرف التذكرة"),
         "ticketian_name":
             MessageLookupByLibrary.simpleMessage("اسم مسؤول التذاكر"),
         "title": MessageLookupByLibrary.simpleMessage("العنوان"),

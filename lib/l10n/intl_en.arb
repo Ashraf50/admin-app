@@ -85,5 +85,6 @@
     "status":"Status",
     "created_at":"Created at",
     "ticket_details":"Ticket Details",
-    "no_details":"No Details Available"
+    "no_details":"No Details Available",
+    "ticket_id":"Ticket Id"
 }

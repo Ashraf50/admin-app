@@ -124,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "technicians": MessageLookupByLibrary.simpleMessage("Technicians"),
         "ticket_details":
             MessageLookupByLibrary.simpleMessage("Ticket Details"),
+        "ticket_id": MessageLookupByLibrary.simpleMessage("Ticket Id"),
         "ticketian_name":
             MessageLookupByLibrary.simpleMessage("Ticketian Name"),
         "title": MessageLookupByLibrary.simpleMessage("Title"),
