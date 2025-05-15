@@ -1,11 +1,17 @@
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import 'manager_card.dart';
 
-class AllManageListView extends StatelessWidget {
+class AllManageListView extends StatefulWidget {
   const AllManageListView({super.key});
 
+  @override
+  State<AllManageListView> createState() => _AllManageListViewState();
+}
+
+class _AllManageListViewState extends State<AllManageListView> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -26,8 +32,19 @@ class AllManageListView extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: state.managers.length,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {},
+                  return TweenAnimationBuilder<double>(
+                    tween: Tween<double>(begin: 0, end: 1),
+                    duration: Duration(milliseconds: 500 + (index * 100)),
+                    curve: Curves.easeOut,
+                    builder: (context, value, child) {
+                      return Opacity(
+                        opacity: value,
+                        child: Transform.translate(
+                          offset: Offset(0, 30 * (1 - value)),
+                          child: child,
+                        ),
+                      );
+                    },
                     child: ManagerCard(
                       manager: state.managers[index],
                     ),
@@ -35,9 +52,7 @@ class AllManageListView extends StatelessWidget {
                 },
               );
             } else if (state is FetchManagerLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return _buildShimmerLoading();
             } else if (state is FetchManagerFailure) {
               return Center(
                 child: Text(state.errMessage),
@@ -48,6 +63,67 @@ class AllManageListView extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildShimmerLoading() {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: 5,
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 120,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          width: 200,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  height: 1,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
