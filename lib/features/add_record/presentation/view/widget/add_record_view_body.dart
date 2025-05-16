@@ -32,7 +32,7 @@ class AddRecordViewBody extends StatelessWidget {
                   hintText: S.of(context).search,
                   prefixIcon: const Icon(Icons.search, color: Colors.grey),
                   onChange: (value) {
-                    if (value.isEmpty) {
+                    if (value.trim().isEmpty) {
                       context.read<AllRecordCubit>().fetchAllRecord();
                     } else {
                       context.read<AllRecordCubit>().searchRecord(value);

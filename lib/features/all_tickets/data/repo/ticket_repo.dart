@@ -7,6 +7,7 @@ abstract class TicketRepo {
   Future<Either<Failure, List<TicketModel>>> sortTicket({
     required String from,
     required String to,
-    required int serviceId,
   });
+  Future<Either<Failure, List<TicketModel>>> searchTicket(
+      {required String name});
 }

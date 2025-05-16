@@ -4,7 +4,10 @@ import 'package:dartz/dartz.dart';
 
 abstract class RecordRepo {
   Future<Either<Failure, List<RecordModel>>> fetchAllRecords();
-
+  Future<Either<Failure, List<RecordModel>>> fetchSelectableServices({
+    int? onlyUnique,
+    int? ignoredId,
+  });
   Future<Either<Failure, List<RecordModel>>> searchRecord(
       {required String name});
   Future<Either<Failure, Unit>> deleteRecord(int id);

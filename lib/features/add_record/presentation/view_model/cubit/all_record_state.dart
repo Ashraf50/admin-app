@@ -15,3 +15,5 @@ final class FetchAllRecordsFailure extends AllRecordState {
   final String errMessage;
   FetchAllRecordsFailure({required this.errMessage});
 }
+
+

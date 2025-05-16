@@ -1,3 +1,5 @@
+import 'package:admin_app/core/constant/app_colors.dart';
+import 'package:admin_app/core/widget/custom_toast.dart';
 import 'package:admin_app/features/add_record/data/model/record_model.dart';
 import 'package:admin_app/features/add_record/presentation/view_model/cubit/all_record_cubit.dart';
 import 'package:admin_app/generated/l10n.dart';
@@ -67,12 +69,23 @@ class RecordCard extends StatelessWidget {
 
   void _showEditDialog(BuildContext context) {
     final nameController = TextEditingController(text: record.name);
+    final formKey = GlobalKey<FormState>();
+
     SmartDialog.show(
       builder: (_) => AlertDialog(
         title: Text(S.of(context).edit_service),
-        content: TextField(
-          controller: nameController,
-          decoration: InputDecoration(labelText: S.of(context).name),
+        content: Form(
+          key: formKey,
+          child: TextFormField(
+            controller: nameController,
+            decoration: InputDecoration(labelText: S.of(context).name),
+            validator: (value) {
+              if (value == null || value.trim().isEmpty) {
+                return S.of(context).name;
+              }
+              return null;
+            },
+          ),
         ),
         actions: [
           TextButton(
@@ -81,11 +94,21 @@ class RecordCard extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              context.read<AllRecordCubit>().editRecord(
-                    record.id!,
-                    nameController.text,
+              if (formKey.currentState!.validate()) {
+                final newName = nameController.text.trim();
+                final originalName = record.name!.trim();
+
+                if (newName == originalName) {
+                  CustomToast.show(
+                    message: S.of(context).no_changes_detected,
+                    backgroundColor: AppColors.darkGrey,
                   );
-              SmartDialog.dismiss();
+                  return;
+                }
+
+                context.read<AllRecordCubit>().editRecord(record.id!, newName);
+                SmartDialog.dismiss();
+              }
             },
             child: Text(S.of(context).save),
           ),

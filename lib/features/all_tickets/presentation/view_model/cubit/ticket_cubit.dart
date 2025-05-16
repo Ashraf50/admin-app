@@ -40,13 +40,12 @@ class TicketCubit extends Cubit<TicketState> {
     fetchTickets(loadMore: true);
   }
 
-  Future<void> fetchSortedTickets(
-      {required String from,
-      required String to,
-      required int serviceId}) async {
+  Future<void> fetchSortedTickets({
+    required String from,
+    required String to,
+  }) async {
     emit(FetchTicketLoading());
-    final result =
-        await ticketRepo.sortTicket(from: from, to: to, serviceId: serviceId);
+    final result = await ticketRepo.sortTicket(from: from, to: to);
     result.fold(
       (failure) {
         CustomToast.show(
@@ -54,6 +53,19 @@ class TicketCubit extends Cubit<TicketState> {
         emit(FetchTicketSuccess(tickets: List.from(allTickets)));
       },
       (tickets) => emit(FetchTicketSuccess(tickets: tickets)),
+    );
+  }
+
+  Future<void> searchTicket(String name) async {
+    emit(FetchTicketLoading());
+    var result = await ticketRepo.searchTicket(name: name);
+    result.fold(
+      (failure) {
+        emit(FetchTicketFailure(errMessage: failure.errMessage));
+      },
+      (tickets) {
+        emit(FetchTicketSuccess(tickets: tickets));
+      },
     );
   }
 }

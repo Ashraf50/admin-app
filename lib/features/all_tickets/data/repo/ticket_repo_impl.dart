@@ -35,14 +35,12 @@ class TicketRepoImpl implements TicketRepo {
   Future<Either<Failure, List<TicketModel>>> sortTicket({
     required String from,
     required String to,
-    required int serviceId,
   }) async {
     try {
       final token = await getToken();
       final queryParams = {
         'from': from,
         'to': to,
-        'service_id': serviceId.toString(),
       };
       var response = await apiHelper.get(
         '${AppStrings.baseUrl}/api/admin/tickets',
@@ -55,6 +53,29 @@ class TicketRepoImpl implements TicketRepo {
       var ticketsList =
           (data["data"] as List).map((e) => TicketModel.fromJson(e)).toList();
       return Right(ticketsList);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TicketModel>>> searchTicket(
+      {required String name}) async {
+    try {
+      final token = await getToken();
+      final response = await apiHelper.get(
+        '${AppStrings.baseUrl}/api/admin/tickets?handle=$name',
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      var data = response.data;
+      var ticketList =
+          (data["data"] as List).map((e) => TicketModel.fromJson(e)).toList();
+      return Right(ticketList);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDiorError(e));

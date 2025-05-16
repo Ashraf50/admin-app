@@ -26,6 +26,8 @@ final class EditManagerFailure extends AddManagerState {
   EditManagerFailure({required this.errMessage});
 }
 
+final class EditManagerSuccess extends AddManagerState {}
+
 final class SearchManagerFailure extends AddManagerState {
   final String errMessage;
   SearchManagerFailure({required this.errMessage});

@@ -148,8 +148,6 @@ class _CustomCardState extends State<CustomCard>
                           child: Text(
                             widget.title,
                             style: AppStyles.textStyle16Black,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
                           ),
                         ),
                         SizedBox(width: 8.w),

@@ -90,11 +90,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ticketian Details"),
         "manager_name": MessageLookupByLibrary.simpleMessage("Manager Name"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "no_changes_detected":
+            MessageLookupByLibrary.simpleMessage("no changes detected"),
         "no_details":
             MessageLookupByLibrary.simpleMessage("No Details Available"),
+        "no_manager":
+            MessageLookupByLibrary.simpleMessage("No manager available"),
         "no_tickets": MessageLookupByLibrary.simpleMessage("No Tickets"),
         "null_value": MessageLookupByLibrary.simpleMessage("null"),
         "openTickets": MessageLookupByLibrary.simpleMessage("Open Tickets"),
+        "pass_not_match":
+            MessageLookupByLibrary.simpleMessage("password not match"),
         "pass_short":
             MessageLookupByLibrary.simpleMessage("your password is too short"),
         "password": MessageLookupByLibrary.simpleMessage("Enter your Password"),

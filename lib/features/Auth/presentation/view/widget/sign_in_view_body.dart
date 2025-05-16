@@ -27,17 +27,11 @@ class _SignInViewBodyState extends State<SignInViewBody> {
   TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool visibility = true;
-  @override
-  void initState() {
-    super.initState();
-    emailController.addListener(() {
-      setState(() {});
-    });
-  }
 
   @override
   void dispose() {
     emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
@@ -136,9 +130,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                       ),
                       CustomButton(
                         title: S.of(context).signIn,
-                        color: emailController.text.isEmpty
-                            ? AppColors.inActiveBlue
-                            : AppColors.activeBlue,
+                        color: AppColors.activeBlue,
                         onTap: () {
                           if (formKey.currentState!.validate()) {
                             BlocProvider.of<AuthBloc>(context).add(LoginEvent(

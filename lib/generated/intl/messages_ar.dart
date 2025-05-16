@@ -90,11 +90,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تفاصيل المدير "),
         "manager_name": MessageLookupByLibrary.simpleMessage("اسم المدير"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم"),
+        "no_changes_detected":
+            MessageLookupByLibrary.simpleMessage("لم يتم تعديل أي شيء"),
         "no_details":
             MessageLookupByLibrary.simpleMessage("لا توجد تفاصيل متاحة"),
+        "no_manager": MessageLookupByLibrary.simpleMessage("لا يوجد مدير متاح"),
         "no_tickets": MessageLookupByLibrary.simpleMessage("لا توجد تذاكر"),
         "null_value": MessageLookupByLibrary.simpleMessage("غير معروف"),
         "openTickets": MessageLookupByLibrary.simpleMessage("التذاكر المفتوحة"),
+        "pass_not_match":
+            MessageLookupByLibrary.simpleMessage("كلمة المرور غير متطابقة"),
         "pass_short":
             MessageLookupByLibrary.simpleMessage("كلمة المرور قصيرة جدًا"),
         "password": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),

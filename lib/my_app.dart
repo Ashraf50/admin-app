@@ -6,6 +6,7 @@ import 'package:admin_app/features/add_manager/data/repo/manager_repo_impl.dart'
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
 import 'package:admin_app/features/add_record/data/repo/record_repo_impl.dart';
 import 'package:admin_app/features/add_record/presentation/view_model/cubit/all_record_cubit.dart';
+import 'package:admin_app/features/add_record/presentation/view_model/cubit/selectable_record_cubit.dart';
 import 'package:admin_app/features/all_tickets/data/repo/ticket_repo_impl.dart';
 import 'package:admin_app/features/all_tickets/presentation/view_model/cubit/ticket_cubit.dart';
 import 'package:admin_app/features/dashboard/data/repo/dashboard_repo_impl.dart';
@@ -45,6 +46,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               AllRecordCubit(RecordRepoImpl(ApiHelper()))..fetchAllRecord(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              SelectableRecordCubit(RecordRepoImpl(ApiHelper()))
+                ..fetchSelectableRecords(onlyUnique: 1),
         ),
         BlocProvider(
           create: (context) =>

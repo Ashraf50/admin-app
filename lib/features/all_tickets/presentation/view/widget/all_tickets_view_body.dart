@@ -1,4 +1,3 @@
-import 'package:admin_app/core/constant/app_styles.dart';
 import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/features/all_tickets/presentation/view/widget/all_tickets_list_view.dart';
 import 'package:admin_app/features/all_tickets/presentation/view/widget/sort_dialog.dart';
@@ -6,21 +5,31 @@ import 'package:admin_app/features/all_tickets/presentation/view_model/cubit/tic
 import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'add_button.dart';
+import '../../../../../core/constant/app_colors.dart';
+import '../../../../../core/widget/custom_search.dart';
 
-class AllTicketsViewBody extends StatelessWidget {
+class AllTicketsViewBody extends StatefulWidget {
   const AllTicketsViewBody({super.key});
 
   @override
+  State<AllTicketsViewBody> createState() => _AllTicketsViewBodyState();
+}
+
+class _AllTicketsViewBodyState extends State<AllTicketsViewBody> {
+  final TextEditingController searchController = TextEditingController();
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final cubit = context.read<TicketCubit>();
     return CustomScaffold(
       backgroundColor: Colors.white,
       body: BlocBuilder<TicketCubit, TicketState>(
         builder: (context, state) {
-          int ticketCount = 0;
-          if (state is FetchTicketSuccess) {
-            ticketCount = state.tickets.length;
-          }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -29,30 +38,48 @@ class AllTicketsViewBody extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 14),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(13),
-                      ),
-                      child: Text(
-                        "$ticketCount",
-                        style: AppStyles.textStyle18bold,
+                    Expanded(
+                      child: CustomSearch(
+                        controller: searchController,
+                        hintText: S.of(context).search,
+                        prefixIcon:
+                            const Icon(Icons.search, color: Colors.grey),
+                        onChange: (value) {
+                          if (value.trim().isEmpty) {
+                            cubit.fetchTickets();
+                          } else {
+                            cubit.searchTicket(value);
+                          }
+                        },
+                        onSubmitted: (value) {
+                          if (value.trim().isEmpty) {
+                            cubit.fetchTickets();
+                          } else {
+                            cubit.searchTicket(value);
+                          }
+                        },
                       ),
                     ),
-                    AddButton(
-                      title: S.of(context).filterTickets,
-                      icon: const Icon(
-                        Icons.sort,
-                        color: Colors.white,
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.darkBlue,
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const SortDialog(),
-                        );
-                      },
+                      child: IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const SortDialog(),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.sort,
+                          color: Colors.white,
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -60,6 +87,9 @@ class AllTicketsViewBody extends StatelessWidget {
                 const Expanded(
                   child: AllTicketsListView(),
                 ),
+                const SizedBox(
+                  height: 40,
+                )
               ],
             ),
           );

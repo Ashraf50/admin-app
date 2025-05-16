@@ -6,6 +6,7 @@ import 'package:admin_app/core/widget/custom_scaffold.dart';
 import 'package:admin_app/core/widget/custom_toast.dart';
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/create_manager_cubit.dart';
+import 'package:admin_app/features/add_record/presentation/view_model/cubit/selectable_record_cubit.dart';
 import 'package:admin_app/generated/l10n.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../../../../core/widget/custom_text_field.dart';
 import '../../../../../../../core/widget/drop_down_text_field.dart';
 import '../../../../add_record/data/model/record_model.dart';
-import '../../../../add_record/presentation/view_model/cubit/all_record_cubit.dart';
 
 class AddNewManager extends StatefulWidget {
   const AddNewManager({super.key});
@@ -34,14 +34,6 @@ class _AddNewManagerState extends State<AddNewManager> {
   int? selectedServiceId;
   RecordModel? selectedRecord;
 
-  @override
-  void initState() {
-    super.initState();
-    context.read<AllRecordCubit>().fetchAllRecord();
-    nameController.addListener(() {
-      setState(() {});
-    });
-  }
 
   @override
   void dispose() {
@@ -110,13 +102,13 @@ class _AddNewManagerState extends State<AddNewManager> {
                   S.of(context).service_name,
                   style: AppStyles.textStyle18bold,
                 ),
-                BlocBuilder<AllRecordCubit, AllRecordState>(
+                BlocBuilder<SelectableRecordCubit, SelectableRecordState>(
                   builder: (context, state) {
-                    if (state is FetchAllRecordsLoading) {
+                    if (state is FetchSelectableRecordsLoading) {
                       return const Center(child: CircularProgressIndicator());
-                    } else if (state is FetchAllRecordsFailure) {
+                    } else if (state is FetchSelectableRecordsFailure) {
                       return Text(state.errMessage);
-                    } else if (state is FetchAllRecordsSuccess) {
+                    } else if (state is FetchSelectableRecordsSuccess) {
                       return DropdownTextField(
                         records: state.records,
                         selectedRecord: selectedRecord,

@@ -3,9 +3,7 @@ import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import '../../../../../core/widget/drop_down_text_field.dart';
 import '../../../../add_record/data/model/record_model.dart';
-import '../../../../add_record/presentation/view_model/cubit/all_record_cubit.dart';
 
 class SortDialog extends StatefulWidget {
   const SortDialog({super.key});
@@ -81,28 +79,6 @@ class SortDialogState extends State<SortDialog> {
             ),
           ),
           const SizedBox(height: 12),
-          BlocBuilder<AllRecordCubit, AllRecordState>(
-            builder: (context, state) {
-              if (state is FetchAllRecordsLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is FetchAllRecordsFailure) {
-                return Text(state.errMessage);
-              } else if (state is FetchAllRecordsSuccess) {
-                return DropdownTextField(
-                  records: state.records,
-                  selectedRecord: selectedRecord,
-                  onChanged: (record) {
-                    setState(() {
-                      selectedRecord = record;
-                      selectedServiceId = record.id;
-                    });
-                  },
-                );
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-          ),
         ],
       ),
       actions: [
@@ -110,10 +86,10 @@ class SortDialogState extends State<SortDialog> {
           onPressed: () {
             String from = fromController.text;
             String to = toController.text;
-            int serviceId = selectedServiceId ?? 0;
-            context
-                .read<TicketCubit>()
-                .fetchSortedTickets(from: from, to: to, serviceId: serviceId);
+            context.read<TicketCubit>().fetchSortedTickets(
+                  from: from,
+                  to: to,
+                );
             Navigator.of(context).pop();
           },
           child: Text(S.of(context).apply),

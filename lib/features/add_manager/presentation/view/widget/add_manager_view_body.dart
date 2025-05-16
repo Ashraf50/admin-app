@@ -25,14 +25,14 @@ class AddManagerViewBody extends StatelessWidget {
             if (state is FetchManagerSuccess) {
               managerCount = state.managers.length;
             }
-            return ListView(
+            return Column(
               children: [
                 CustomSearch(
                   controller: searchController,
                   hintText: S.of(context).search,
                   prefixIcon: const Icon(Icons.search, color: Colors.grey),
                   onChange: (value) {
-                    if (value.isEmpty) {
+                    if (value.trim().isEmpty) {
                       context.read<AddManagerCubit>().fetchManager();
                     } else {
                       context.read<AddManagerCubit>().searchManager(value);
@@ -68,7 +68,7 @@ class AddManagerViewBody extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const AllManageListView(),
+                const Expanded(child: AllManageListView()),
                 const SizedBox(
                   height: 40,
                 )

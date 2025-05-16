@@ -61,6 +61,7 @@ class AddManagerCubit extends Cubit<AddManagerState> {
     required String password,
     required String confirmPass,
   }) async {
+    emit(FetchManagerLoading());
     var result = await managerRepo.editManager(
       serviceId: serviceId,
       name: name,
@@ -70,12 +71,12 @@ class AddManagerCubit extends Cubit<AddManagerState> {
       managerId: managerId,
     );
     result.fold(
-      (failure) {
-        CustomToast.show(
-            message: failure.errMessage, backgroundColor: Colors.red);
-        fetchManager();
+      (failure) async {
+        emit(EditManagerFailure(errMessage: failure.errMessage));
+        await fetchManager();
       },
       (_) async {
+        emit(EditManagerSuccess());
         await fetchManager();
       },
     );

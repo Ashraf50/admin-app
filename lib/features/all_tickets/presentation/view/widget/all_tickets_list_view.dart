@@ -1,6 +1,8 @@
+import 'package:admin_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../add_manager/presentation/view/widget/all_manager_list_view.dart';
 import '../../view_model/cubit/ticket_cubit.dart';
 import 'ticket_card.dart';
 
@@ -47,19 +49,22 @@ class _AllTicketsListViewState extends State<AllTicketsListView> {
   Widget build(BuildContext context) {
     return Material(
       elevation: 3,
-      borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(13), topRight: Radius.circular(13)),
+      borderRadius: BorderRadius.circular(13),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 13),
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.grey),
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(13), topRight: Radius.circular(13)),
+          borderRadius: BorderRadius.circular(13),
         ),
         child: BlocBuilder<TicketCubit, TicketState>(
           builder: (context, state) {
             if (state is FetchTicketSuccess) {
+              if (state.tickets.isEmpty) {
+                return Center(
+                  child: Text(S.of(context).no_tickets),
+                );
+              }
               return ListView.builder(
                 controller: _scrollController,
                 itemCount: state.tickets.length,
@@ -95,7 +100,7 @@ class _AllTicketsListViewState extends State<AllTicketsListView> {
                 },
               );
             } else if (state is FetchTicketLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return buildShimmerLoading();
             } else if (state is FetchTicketFailure) {
               return Center(child: Text(state.errMessage));
             } else {

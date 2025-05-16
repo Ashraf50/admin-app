@@ -929,6 +929,36 @@ class S {
       args: [],
     );
   }
+
+  /// `password not match`
+  String get pass_not_match {
+    return Intl.message(
+      'password not match',
+      name: 'pass_not_match',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `no changes detected`
+  String get no_changes_detected {
+    return Intl.message(
+      'no changes detected',
+      name: 'no_changes_detected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No manager available`
+  String get no_manager {
+    return Intl.message(
+      'No manager available',
+      name: 'no_manager',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

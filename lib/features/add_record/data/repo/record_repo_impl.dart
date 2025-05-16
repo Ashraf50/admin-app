@@ -33,6 +33,41 @@ class RecordRepoImpl implements RecordRepo {
   }
 
   @override
+  Future<Either<Failure, List<RecordModel>>> fetchSelectableServices({
+    int? onlyUnique,
+    int? ignoredId,
+  }) async {
+    try {
+      final token = await getToken();
+      Map<String, dynamic> queryParams = {};
+      if (onlyUnique != null) {
+        queryParams['only_unique'] = onlyUnique.toString();
+      }
+      if (ignoredId != null) {
+        queryParams['ignored_id'] = ignoredId.toString();
+      }
+
+      var response = await apiHelper.get(
+        '${AppStrings.baseUrl}/api/select_menu/services',
+        queryParameters: queryParams,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      var data = response.data;
+      var recordList =
+          (data["data"] as List).map((e) => RecordModel.fromJson(e)).toList();
+      return Right(recordList);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, Unit>> createRecord({required String name}) async {
     try {
       final token = await getToken();
