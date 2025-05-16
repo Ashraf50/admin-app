@@ -3,19 +3,8 @@ abstract class AuthRepo {
     required String email,
     required String password,
   });
-  Future<Map<String, dynamic>> forgetPassword({
-    required String email,
-  });
-  Future<Map<String, dynamic>> resetPassword({
-    required String email,
-    required String code,
-    required String password,
-    required String passwordConfirm,
-  });
-  Future<Map<String, dynamic>> verifyCode({
-    required String email,
-    required String code,
-  });
   Future<bool> isLoggedIn();
   Future<void> logout();
+  Future<void> saveTokens(String token, String refreshToken, String userId);
+  Future<void> clearTokens();
 }

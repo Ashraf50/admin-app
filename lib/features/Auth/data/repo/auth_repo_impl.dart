@@ -42,61 +42,16 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Map<String, dynamic>> forgetPassword({required String email}) async {
-    try {
-      final response = await apiHelper.post(
-        '${AppStrings.baseUrl}/auth/password/forgot_password',
-        {'handle': email},
-      );
-      return response.data;
-    } on DioException catch (e) {
-      throw handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to send password reset request: $e');
-    }
+  Future<void> saveTokens(
+      String token, String refreshToken, String userId) async {
+    await secureStorage.write(key: 'auth_token', value: token);
+    await secureStorage.write(key: 'refresh_token', value: refreshToken);
+    await secureStorage.write(key: 'user_id', value: userId);
   }
 
   @override
-  Future<Map<String, dynamic>> resetPassword({
-    required String email,
-    required String code,
-    required String password,
-    required String passwordConfirm,
-  }) async {
-    try {
-      final response = await apiHelper.post(
-        '${AppStrings.baseUrl}/auth/password/reset_password',
-        {
-          'handle': email,
-          'code': code,
-          'password': password,
-          'password_confirmation': passwordConfirm,
-        },
-      );
-      return response.data;
-    } on DioException catch (e) {
-      throw handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to reset password: $e');
-    }
-  }
-
-  @override
-  Future<Map<String, dynamic>> verifyCode({
-    required String email,
-    required String code,
-  }) async {
-    try {
-      final response = await apiHelper.post(
-        '${AppStrings.baseUrl}/auth/password/validate_code',
-        {'handle': email, 'code': code},
-      );
-      return response.data;
-    } on DioException catch (e) {
-      throw handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to verify code: $e');
-    }
+  Future<void> clearTokens() async {
+    await secureStorage.deleteAll();
   }
 
   Exception handleDioError(DioException e) {
