@@ -4,8 +4,10 @@ import 'package:admin_app/features/Auth/data/repo/auth_repo_impl.dart';
 import 'package:admin_app/features/Auth/presentation/view_model/bloc/auth_bloc.dart';
 import 'package:admin_app/features/add_manager/data/repo/manager_repo_impl.dart';
 import 'package:admin_app/features/add_manager/presentation/view_model/cubit/add_manager_cubit.dart';
-import 'package:admin_app/features/add_record/data/repo/record_repo_impl.dart';
+import 'package:admin_app/features/add_record/data/repo/record/record_repo_impl.dart';
+import 'package:admin_app/features/add_record/data/repo/section/section_repo_impl.dart';
 import 'package:admin_app/features/add_record/presentation/view_model/cubit/all_record_cubit.dart';
+import 'package:admin_app/features/add_record/presentation/view_model/cubit/all_sections_cubit.dart';
 import 'package:admin_app/features/add_record/presentation/view_model/cubit/selectable_record_cubit.dart';
 import 'package:admin_app/features/all_tickets/data/repo/ticket_repo_impl.dart';
 import 'package:admin_app/features/all_tickets/presentation/view_model/cubit/ticket_cubit.dart';
@@ -69,6 +71,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => LanguageBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AllSectionsCubit(SectionRepoImpl(ApiHelper())),
         ),
       ],
       child: ScreenUtilInit(

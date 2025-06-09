@@ -17,6 +17,7 @@ class ManagerRepoImpl implements ManagerRepo {
     required String email,
     required String password,
     required String confirmPass,
+    required bool autoAssign,
   }) async {
     try {
       final token = await getToken();
@@ -24,6 +25,7 @@ class ManagerRepoImpl implements ManagerRepo {
         '${AppStrings.baseUrl}/api/admin/managers',
         {
           "service_id": serviceId,
+          "automatic_assignment": autoAssign,
           "user": {
             "name": name,
             "email": email,
@@ -71,11 +73,13 @@ class ManagerRepoImpl implements ManagerRepo {
     required String email,
     required String password,
     required String confirmPass,
+    required bool autoAssign,
   }) async {
     try {
       final token = await getToken();
       final data = {
         "service_id": serviceId,
+        "automatic_assignment": autoAssign,
         "user": {
           "name": name,
           "email": email,

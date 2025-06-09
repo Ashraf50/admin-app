@@ -1,6 +1,7 @@
 import 'package:admin_app/core/widget/photo_view.dart';
 import 'package:admin_app/features/Auth/presentation/view/sign_in_view.dart';
 import 'package:admin_app/features/add_manager/presentation/view/widget/add_new_manager.dart';
+import 'package:admin_app/features/add_record/presentation/view/widget/create_new_section.dart';
 import 'package:admin_app/features/all_tickets/data/model/ticket_model/ticket_model/ticket_model.dart';
 import 'package:admin_app/features/dashboard/data/model/statistics_model/recent_ticket.dart';
 import 'package:admin_app/features/dashboard/presentation/view/widget/ticket_details.dart';
@@ -55,6 +56,14 @@ class AppRouter {
         path: '/create_record',
         builder: (context, state) => const CreateNewRecord(),
       ),
+      GoRoute(
+          path: '/create_section',
+          builder: (context, state) {
+            var id = state.extra as int;
+            return CreateNewSection(
+              serviceId: id,
+            );
+          }),
       GoRoute(
         path: '/add_new_manager',
         builder: (context, state) => const AddNewManager(),

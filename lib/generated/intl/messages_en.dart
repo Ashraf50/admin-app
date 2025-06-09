@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Service_created": MessageLookupByLibrary.simpleMessage(
             "Service Created successfully"),
         "addManager": MessageLookupByLibrary.simpleMessage("Add Manager"),
+        "add_Section": MessageLookupByLibrary.simpleMessage("Add Section"),
         "add_service": MessageLookupByLibrary.simpleMessage("Add Service"),
         "allTickets": MessageLookupByLibrary.simpleMessage("All Tickets"),
         "annualTickets":
@@ -40,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "apply": MessageLookupByLibrary.simpleMessage("Apply"),
         "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
         "assign": MessageLookupByLibrary.simpleMessage("Assign"),
+        "automatic_assignment":
+            MessageLookupByLibrary.simpleMessage("Automatic Ticket Assignment"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "check_data": MessageLookupByLibrary.simpleMessage("Check your data"),
         "check_email":
@@ -64,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "edit_manager": MessageLookupByLibrary.simpleMessage("Edit Ticketian"),
+        "edit_section": MessageLookupByLibrary.simpleMessage("Edit Section"),
         "edit_service": MessageLookupByLibrary.simpleMessage("Edit Service"),
         "email": MessageLookupByLibrary.simpleMessage("Enter your email"),
         "empty_field": MessageLookupByLibrary.simpleMessage("empty field"),
@@ -96,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No Details Available"),
         "no_manager":
             MessageLookupByLibrary.simpleMessage("No manager available"),
+        "no_service": MessageLookupByLibrary.simpleMessage("No Service"),
         "no_tickets": MessageLookupByLibrary.simpleMessage("No Tickets"),
         "null_value": MessageLookupByLibrary.simpleMessage("null"),
         "openTickets": MessageLookupByLibrary.simpleMessage("Open Tickets"),
@@ -110,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resolved": MessageLookupByLibrary.simpleMessage("Resolved"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "search": MessageLookupByLibrary.simpleMessage("search"),
+        "section_name": MessageLookupByLibrary.simpleMessage("Section Name"),
         "selectService": MessageLookupByLibrary.simpleMessage("Select Service"),
         "service_deleted_successfully": MessageLookupByLibrary.simpleMessage(
             "Service deleted successfully"),
@@ -124,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "sure_delete_manager": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this Manager?"),
+        "sure_delete_section": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete this section"),
         "sure_delete_service": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this Service?"),
         "take_photo": MessageLookupByLibrary.simpleMessage("Take Photo"),

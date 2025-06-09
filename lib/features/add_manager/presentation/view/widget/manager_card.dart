@@ -23,6 +23,7 @@ class ManagerCard extends StatefulWidget {
 class _ManagerCardState extends State<ManagerCard> {
   int? selectedServiceId;
   RecordModel? selectedRecord;
+  bool autoAssign = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -228,6 +229,29 @@ class _ManagerCardState extends State<ManagerCard> {
                           return null;
                         },
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Checkbox(
+                              value: autoAssign,
+                              onChanged: (bool? value) {
+                                setModalState(() {
+                                  autoAssign = value ?? false;
+                                });
+                              },
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              S.of(context).automatic_assignment,
+                              style: AppStyles.textStyle18bold,
+                            ),
+                          ],
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -246,6 +270,7 @@ class _ManagerCardState extends State<ManagerCard> {
                                       email: emailController.text,
                                       password: passwordController.text,
                                       confirmPass: confirmPassController.text,
+                                      autoAssign: autoAssign,
                                     );
                               }
                             },

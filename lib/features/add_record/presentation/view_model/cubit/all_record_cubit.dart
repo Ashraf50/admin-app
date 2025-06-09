@@ -1,5 +1,5 @@
 import 'package:admin_app/features/add_record/data/model/record_model.dart';
-import 'package:admin_app/features/add_record/data/repo/record_repo.dart';
+import 'package:admin_app/features/add_record/data/repo/record/record_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'all_record_state.dart';
 

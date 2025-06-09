@@ -30,10 +30,10 @@ class _AddNewManagerState extends State<AddNewManager> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPassController = TextEditingController();
   bool visibility = true;
+  bool autoAssign = false;
   final formKey = GlobalKey<FormState>();
   int? selectedServiceId;
   RecordModel? selectedRecord;
-
 
   @override
   void dispose() {
@@ -185,12 +185,36 @@ class _AddNewManagerState extends State<AddNewManager> {
                   ),
                   controller: confirmPassController,
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Checkbox(
+                        value: autoAssign,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            autoAssign = value ?? false;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        S.of(context).automatic_assignment,
+                        style: AppStyles.textStyle18bold,
+                      ),
+                    ],
+                  ),
+                ),
                 CustomButton(
                   title: S.of(context).submit,
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
                       final cubit = context.read<CreateManagerCubit>();
                       await cubit.createManager(
+                        autoAssign: autoAssign,
                         name: nameController.text,
                         email: emailController.text,
                         password: passwordController.text,

@@ -12,6 +12,7 @@ class CreateManagerCubit extends Cubit<CreateManagerState> {
     required String email,
     required String password,
     required String confirmPass,
+    required bool autoAssign,
   }) async {
     emit(CreateManagerLoading());
     final result = await managerRepo.createManager(
@@ -20,6 +21,7 @@ class CreateManagerCubit extends Cubit<CreateManagerState> {
       password: password,
       confirmPass: confirmPass,
       serviceId: serviceId,
+      autoAssign: autoAssign,
     );
     return result.fold(
       (failure) {

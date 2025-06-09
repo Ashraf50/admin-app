@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Service_created":
             MessageLookupByLibrary.simpleMessage("تم إنشاء الخدمة بنجاح"),
         "addManager": MessageLookupByLibrary.simpleMessage("إضافة مدير"),
+        "add_Section": MessageLookupByLibrary.simpleMessage("إضافة قسم"),
         "add_service": MessageLookupByLibrary.simpleMessage("إضافة خدمة"),
         "allTickets": MessageLookupByLibrary.simpleMessage("جميع التذاكر"),
         "annualTickets":
@@ -40,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "apply": MessageLookupByLibrary.simpleMessage("تطبيق"),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
         "assign": MessageLookupByLibrary.simpleMessage("تعيين"),
+        "automatic_assignment":
+            MessageLookupByLibrary.simpleMessage("تخصيص التذكرة تلقائيًا"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "check_data": MessageLookupByLibrary.simpleMessage("تحقق من بياناتك"),
         "check_email": MessageLookupByLibrary.simpleMessage(
@@ -65,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editProfile":
             MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
         "edit_manager": MessageLookupByLibrary.simpleMessage("تعديل المدير "),
+        "edit_section": MessageLookupByLibrary.simpleMessage("تعديل القسم"),
         "edit_service": MessageLookupByLibrary.simpleMessage("تعديل الخدمة"),
         "email": MessageLookupByLibrary.simpleMessage("أدخل بريدك الإلكتروني"),
         "empty_field": MessageLookupByLibrary.simpleMessage("حقل فارغ"),
@@ -95,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_details":
             MessageLookupByLibrary.simpleMessage("لا توجد تفاصيل متاحة"),
         "no_manager": MessageLookupByLibrary.simpleMessage("لا يوجد مدير متاح"),
+        "no_service": MessageLookupByLibrary.simpleMessage("لا توجد خدمة"),
         "no_tickets": MessageLookupByLibrary.simpleMessage("لا توجد تذاكر"),
         "null_value": MessageLookupByLibrary.simpleMessage("غير معروف"),
         "openTickets": MessageLookupByLibrary.simpleMessage("التذاكر المفتوحة"),
@@ -109,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resolved": MessageLookupByLibrary.simpleMessage("تم الحل"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "search": MessageLookupByLibrary.simpleMessage("بحث"),
+        "section_name": MessageLookupByLibrary.simpleMessage("اسم القسم"),
         "selectService": MessageLookupByLibrary.simpleMessage("اختر الخدمة"),
         "service_deleted_successfully":
             MessageLookupByLibrary.simpleMessage("تم حذف الخدمة بنجاح"),
@@ -119,9 +125,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "someThingWrong": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
         "status": MessageLookupByLibrary.simpleMessage("الحالة"),
-        "submit": MessageLookupByLibrary.simpleMessage("إرسال"),
+        "submit": MessageLookupByLibrary.simpleMessage("حفظ"),
         "sure_delete_manager": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد حذف هذا المدير"),
+        "sure_delete_section": MessageLookupByLibrary.simpleMessage(
+            "هل أنت متأكد أنك تريد حذف هذا القسم؟"),
         "sure_delete_service": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد حذف هذه الخدمة؟"),
         "take_photo": MessageLookupByLibrary.simpleMessage("التقط صورة"),

@@ -64,7 +64,7 @@
     "department": "القسم",
     "confirmPassword": "تأكيد كلمة المرور",
     "editProfile": "تعديل الملف الشخصي",
-    "submit": "إرسال",
+    "submit": "حفظ",
     "logoutAccount": "تسجيل الخروج",
     "add_service": "إضافة خدمة",
     "service_name": "اسم الخدمة",
@@ -86,8 +86,14 @@
     "created_at": "تاريخ الإنشاء",
     "ticket_details": "تفاصيل التذكرة",
     "no_details": "لا توجد تفاصيل متاحة",
-    "ticket_id":"معرف التذكرة",
+    "ticket_id": "معرف التذكرة",
     "pass_not_match": "كلمة المرور غير متطابقة",
     "no_changes_detected": "لم يتم تعديل أي شيء",
-    "no_manager": "لا يوجد مدير متاح"
+    "no_manager": "لا يوجد مدير متاح",
+    "add_Section": "إضافة قسم",
+    "section_name": "اسم القسم",
+    "edit_section": "تعديل القسم",
+    "sure_delete_section": "هل أنت متأكد أنك تريد حذف هذا القسم؟",
+    "no_service": "لا توجد خدمة",
+    "automatic_assignment": "تخصيص التذكرة تلقائيًا"
 }

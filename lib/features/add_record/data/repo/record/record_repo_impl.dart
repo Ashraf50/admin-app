@@ -3,7 +3,7 @@ import 'package:admin_app/core/constant/func/get_token.dart';
 import 'package:admin_app/core/error/failure.dart';
 import 'package:admin_app/core/helper/api_helper.dart';
 import 'package:admin_app/features/add_record/data/model/record_model.dart';
-import 'package:admin_app/features/add_record/data/repo/record_repo.dart';
+import 'package:admin_app/features/add_record/data/repo/record/record_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 

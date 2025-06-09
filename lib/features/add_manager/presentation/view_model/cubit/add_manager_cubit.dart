@@ -60,6 +60,7 @@ class AddManagerCubit extends Cubit<AddManagerState> {
     required String email,
     required String password,
     required String confirmPass,
+    required bool autoAssign,
   }) async {
     emit(FetchManagerLoading());
     var result = await managerRepo.editManager(
@@ -69,6 +70,7 @@ class AddManagerCubit extends Cubit<AddManagerState> {
       password: password,
       confirmPass: confirmPass,
       managerId: managerId,
+      autoAssign: autoAssign,
     );
     result.fold(
       (failure) async {

@@ -959,6 +959,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Add Section`
+  String get add_Section {
+    return Intl.message(
+      'Add Section',
+      name: 'add_Section',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Section Name`
+  String get section_name {
+    return Intl.message(
+      'Section Name',
+      name: 'section_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Section`
+  String get edit_section {
+    return Intl.message(
+      'Edit Section',
+      name: 'edit_section',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this section`
+  String get sure_delete_section {
+    return Intl.message(
+      'Are you sure you want to delete this section',
+      name: 'sure_delete_section',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Service`
+  String get no_service {
+    return Intl.message(
+      'No Service',
+      name: 'no_service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Automatic Ticket Assignment`
+  String get automatic_assignment {
+    return Intl.message(
+      'Automatic Ticket Assignment',
+      name: 'automatic_assignment',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

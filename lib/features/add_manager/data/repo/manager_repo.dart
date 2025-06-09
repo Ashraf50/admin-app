@@ -15,6 +15,7 @@ abstract class ManagerRepo {
     required String email,
     required String password,
     required String confirmPass,
+    required bool autoAssign,
   });
   Future<Either<Failure, Unit>> createManager({
     required String serviceId,
@@ -22,5 +23,6 @@ abstract class ManagerRepo {
     required String email,
     required String password,
     required String confirmPass,
+    required bool autoAssign,
   });
 }
