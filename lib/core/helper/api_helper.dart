@@ -59,7 +59,7 @@ class ApiHelper {
               }
               final refreshResponse = await _dio.post(
                 'https://graduation.arabic4u.org/auth/refresh_tokens/refresh',
-                data: {'refresh_token': refreshToken},
+                data: {'token': refreshToken},
                 options: Options(headers: {'requiresToken': false}),
               );
               final newToken = refreshResponse.data['data']['token'];
